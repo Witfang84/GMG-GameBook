@@ -1,0 +1,67 @@
+- generic [ref=e3]:
+  - banner [ref=e494]:
+    - link "Szczur numer 16, strona główna" [ref=e495] [cursor=pointer]:
+      - /url: "#/"
+      - generic [ref=e498]: "> SZCZUR_NR_16 // KONSOLA ZAŁOGANTA"
+    - generic [ref=e499]: "STATUS: AKTYWNY"
+  - main [ref=e13]:
+    - generic [ref=e500]:
+      - generic [ref=e501]:
+        - generic [ref=e502]:
+          - paragraph [ref=e503]: "[ ARCHIWUM // LINIA GŁÓWNA ]"
+          - heading "KANON" [level=1] [ref=e504]
+          - paragraph [ref=e505]: Oficjalny zapis zwycięskich paragrafów Szczura nr 16. Każdy rekord prowadzi do następnej decyzji załogi.
+        - generic "Stan kanonu" [ref=e506]:
+          - generic [ref=e507]:
+            - term [ref=e508]: "REKORDY:"
+            - definition [ref=e509]: "3"
+          - generic [ref=e510]:
+            - term [ref=e511]: "STATUS:"
+            - definition [ref=e512]: ONLINE
+          - generic [ref=e513]:
+            - term [ref=e514]: "NASTĘPNA:"
+            - definition [ref=e515]: R4
+      - generic [ref=e516]:
+        - article [ref=e517]:
+          - generic [ref=e518]:
+            - generic [ref=e519]: KOLEJKA 1
+            - generic [ref=e520]: PARAGRAF OTWIERAJĄCY
+            - generic [ref=e521]: Kubulozaurus.Rex
+          - paragraph [ref=e522]: Jesteśmy dzielną załogą Szczura nr 16. Pracuje i żyje nas w tym ogromnym biomechanicznym gryzoniu 300 ludzi. Chodzimy nim po Nieskończonym Labiryncie w Fundacji Rozwoju. Szukamy żywności i zasobów, by wrócić z nimi do Gniazda. To metropolia pośrodku Labiryntu, baza dla setek Szczurów takich jak nasz. Nie bój się Kota, to tylko mit.
+        - generic [ref=e523]:
+          - generic [ref=e524]: "02"
+          - generic [ref=e526]:
+            - article [ref=e527]:
+              - generic [ref=e528]:
+                - generic [ref=e529]: KONTEKST
+                - generic [ref=e530]: TERMOS
+              - paragraph [ref=e531]: Kiza, jesteś doświadczoną szczurzą załogantką i pierwszym oficerem kapitana Nezumiego. Wracacie Szczurem nr 16 z czteromiesięcznej tułaczki. Epidemia nieznanej choroby zabiła sześćdziesięciu załogantów, lecz później znaleźliście żyzną dolinę pod sztucznym słońcem, pełną jadalnych owoców, korzeni, ziół i ryb. Odkryliście też wielkie jajo, w którym odnotowaliście życie. Szczur nie chciał się do niego zbliżyć, a po załadowaniu jaja do ochronnego magazynu przyspieszył, jakby pragnął jak najszybciej dostarczyć je do Gniazda. Dwa dni przed domem drogę blokuje zawalony korytarz. Pod kamieniami wystają strzępy granatowego materiału, a ściany noszą ślady wielkich pazurów. Nezumi wysyła ciebie i trójkę Kozaków, by zbadać miejsce w świetle Szczura; jednemu z nich każe wziąć miotacz ognia.
+            - generic [ref=e532]:
+              - generic [ref=e533]: OPCJA 2
+              - strong [ref=e534]: Wychodzisz z trójką Kozaków i za pomocą mech-ramienia próbujecie z odległości uwolnić materiał spod gruzu.
+            - article [ref=e535]:
+              - generic [ref=e536]:
+                - generic [ref=e537]: ZWYCIĘSKI PARAGRAF
+                - generic [ref=e538]: Green
+              - paragraph [ref=e539]: Kleszcze mech-ramienia zgrzytają na głazach. Co chwilę przecieracie wizjery z osiadającego, lepkiego pyłu. W końcu praca ustaje. Cisza. Kozak z miotaczem ognia nie potrafi opanować drżenia rąk. Klekot jego broni niesie się po korytarzu słabym echem. Przechodzi cię zimny dreszcz. Przed wami leży rozszarpany sztandar Szczura 13.
+        - generic [ref=e540]:
+          - generic [ref=e541]: "03"
+          - generic [ref=e543]:
+            - generic [ref=e544]:
+              - generic [ref=e545]: OPCJA 2
+              - strong [ref=e546]: "Składasz raport i rozkazujesz przyspieszyć pracę mech-ramienia: „Tam może jeszcze ktoś żyć!”"
+            - article [ref=e547]:
+              - generic [ref=e548]:
+                - generic [ref=e549]: ZWYCIĘSKI PARAGRAF
+                - generic [ref=e550]: Baksu
+              - paragraph [ref=e551]: "Kozacy natychmiast ruszają do dalszej pracy. Niedługo potem spod zwałowiska wyciągacie dowody katastrofy: powłokę szczurzego ogona, hełm z wyrytą liczbą 13, poszarpany skafander. Poruszył się! Odkopujecie rannego Kozaka. Łapczywie pije wodę z bukłaka, który mu podstawiasz do ust. Jego wargi wypowiadają nieme „Jajo. To pułapka”."
+        - complementary [ref=e552]:
+          - generic [ref=e553]: NOW
+          - generic [ref=e554]:
+            - strong [ref=e555]: RUNDA 4 // OCZEKUJE
+            - paragraph [ref=e556]: Czekamy na wybór ścieżki.
+          - link "Otwórz mapę" [ref=e557] [cursor=pointer]:
+            - /url: "#/mapa"
+  - contentinfo [ref=e561]:
+    - generic [ref=e562]: VER_SYS_1.0
+    - generic [ref=e563]: "ZALOGOWANY ZAŁOGANT: WITFANG"

@@ -1,5 +1,5 @@
 import { ArrowUpRight, BookOpen, Map as MapIcon, Terminal, Settings2 } from 'lucide-react'
-import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
+import { Link, Route, Routes, useLocation } from 'react-router-dom'
 import {
   getCanonicalEntries,
   getSelectedOption,
@@ -18,40 +18,48 @@ const formatDate = (date: string) =>
     year: 'numeric',
   }).format(new Date(date))
 
+function ConsoleHeader({ standalone = false }: { standalone?: boolean }) {
+  const isOpen = story.contest.status === 'open'
+
+  return (
+    <header className={`console-header${standalone ? ' app-console-header' : ''}`}>
+      <Link className="console-prompt" to="/" aria-label="Szczur numer 16, strona główna">
+        <Terminal size={15} strokeWidth={2.5} aria-hidden="true" />
+        <span>&gt; SZCZUR_NR_16 // KONSOLA ZAŁOGANTA</span>
+      </Link>
+      <span className={`console-status${isOpen ? ' is-active' : ''}`}>
+        STATUS: {isOpen ? 'AKTYWNY' : 'ZAMKNIĘTY'}
+      </span>
+    </header>
+  )
+}
+
+function ConsoleFooter({ standalone = false }: { standalone?: boolean }) {
+  return (
+    <footer className={`home-footer${standalone ? ' app-console-footer' : ''}`}>
+      <span>VER_SYS_1.0</span>
+      <span>ZALOGOWANY ZAŁOGANT: WITFANG</span>
+    </footer>
+  )
+}
+
 function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation()
   const isHome = location.pathname === '/'
+  const isCanon = location.pathname === '/kanon'
+  const usesHomeShell = isHome || isCanon
 
   return (
-    <div className={`app-shell${isHome ? ' home-shell' : ''}`}>
-      {isHome ? null : (
-        <header className="site-header">
-          <Link className="wordmark" to="/" aria-label={`${story.contest.title} - strona główna`}>
-            <span className="wordmark-mark">SN16</span>
-            <span>{story.contest.title}</span>
-          </Link>
-          <nav aria-label="Główna nawigacja">
-            <NavLink to="/kanon">Kanon</NavLink>
-            <NavLink to="/rundy">Rundy</NavLink>
-            <NavLink to="/zgloszenia">Archiwum</NavLink>
-            <NavLink to="/mapa">Mapa</NavLink>
-          </nav>
-        </header>
-      )}
+    <div className={`app-shell${usesHomeShell ? ' home-shell' : ''}${isCanon ? ' canon-shell' : ''}`}>
+      {isHome ? null : <ConsoleHeader standalone />}
       <main>{children}</main>
-      {isHome ? null : (
-        <footer className="site-footer">
-          <span>Wspólna opowieść, zachowane wszystkie ścieżki.</span>
-          <span>Stan konkursu: {story.contest.status === 'open' ? 'otwarty' : 'zamknięty'}</span>
-        </footer>
-      )}
+      {isHome ? null : <ConsoleFooter standalone />}
     </div>
   )
 }
 
 function HomePage() {
   const latestRound = story.rounds.at(-1)
-  const isOpen = story.contest.status === 'open'
   const roundNumber = latestRound?.number.toString().padStart(2, '0') ?? '--'
   const deadline = latestRound?.submissionDeadline
     ? formatDate(latestRound.submissionDeadline)
@@ -60,15 +68,7 @@ function HomePage() {
   return (
     <div className="home-screen">
       <div className="screen-noise" aria-hidden="true" />
-      <header className="console-header">
-        <Link className="console-prompt" to="/" aria-label="Szczur numer 16, strona główna">
-          <Terminal size={15} strokeWidth={2.5} aria-hidden="true" />
-          <span>&gt; SZCZUR_NR_16 // KONSOLA ZAŁOGANTA</span>
-        </Link>
-        <span className={`console-status${isOpen ? ' is-active' : ''}`}>
-          STATUS: {isOpen ? 'AKTYWNY' : 'ZAMKNIĘTY'}
-        </span>
-      </header>
+      <ConsoleHeader />
 
       <section className="directive-hero" aria-labelledby="directive-title">
         <div className="rat-art">
@@ -115,10 +115,7 @@ function HomePage() {
         </div>
       </section>
 
-      <footer className="home-footer">
-        <span>VER_SYS_1.0</span>
-        <span>ZALOGOWANY ZAŁOGANT: WITFANG</span>
-      </footer>
+      <ConsoleFooter />
     </div>
   )
 }
@@ -126,59 +123,84 @@ function HomePage() {
 function CanonPage() {
   const entries = getCanonicalEntries(story)
   const latestRound = story.rounds.at(-1)
+  const pendingOptions = latestRound
+    ? story.options.filter((option) => option.roundId === latestRound.id)
+    : []
 
   return (
-    <section className="reading-layout">
-      <header className="reading-header">
-        <p className="eyebrow">Oficjalna linia opowieści</p>
-        <h1>Kanon</h1>
-        <p>Wszystkie zwycięskie paragrafy, w kolejności, w której stały się historią.</p>
+    <section className="canon-page">
+      <div className="screen-noise" aria-hidden="true" />
+      <header className="canon-header">
+        <div>
+          <h1>KANON</h1>
+          <p>Oficjalny zapis zwycięskich paragrafów Szczura nr 16. Każdy rekord prowadzi do następnej decyzji załogi.</p>
+        </div>
       </header>
 
-      <article className="canon-entry canon-opening">
-        <div className="entry-meta"><span>Runda 1</span><span>{story.openingParagraph.authorName}</span></div>
-        <p>{story.openingParagraph.text}</p>
-      </article>
+      <div className="canon-stream">
+        <article className="canon-record canon-record-opening">
+          <header className="canon-record-header">
+            <span className="canon-record-id">KOLEJKA 1</span>
+            <span>PARAGRAF OTWIERAJĄCY</span>
+            <span>{story.openingParagraph.authorName}</span>
+          </header>
+          <p>{story.openingParagraph.text}</p>
+        </article>
 
-      {entries.map((entry) => {
-        const paragraph = getSubmission(story, entry.paragraphId)
-        const round = story.rounds.find((item) => item.id === paragraph?.roundId)
-        const option = round ? getSelectedOption(story, round.id) : undefined
+        {entries.map((entry) => {
+          const paragraph = getSubmission(story, entry.paragraphId)
+          const round = story.rounds.find((item) => item.id === paragraph?.roundId)
+          const option = round ? getSelectedOption(story, round.id) : undefined
 
-        if (!paragraph || !round || !option) return null
+          if (!paragraph || !round || !option) return null
 
-        return (
-          <div className="canon-step" key={entry.sequenceNumber}>
-            {round.prompt && (
-              <article className="canon-entry">
-                <div className="entry-meta"><span>Paragraf {round.number - 1}</span></div>
-                <p>{round.prompt}</p>
-              </article>
-            )}
-            <div className="chosen-option">
-              <span>Runda {round.number} · wybrana opcja {option.label}</span>
-              <strong>{option.text}</strong>
+          return (
+            <div className="canon-sequence-step" key={entry.sequenceNumber}>
+              <div className="canon-sequence-rail" aria-hidden="true">
+                <span>{entry.sequenceNumber.toString().padStart(2, '0')}</span>
+              </div>
+              <div className="canon-sequence-content">
+                {round.prompt && (
+                  <article className="canon-transition canon-prompt">
+                    <header className="canon-transition-header">
+                      <span>KONTEKST</span>
+                      <span>TERMOS</span>
+                    </header>
+                    <p>{round.prompt}</p>
+                  </article>
+                )}
+                <div className="canon-choice">
+                  <span>OPCJA {option.label}</span>
+                  <strong>{option.text}</strong>
+                </div>
+                <article className="canon-record">
+                  <header className="canon-record-header">
+                      <span>ZWYCIĘSKI PARAGRAF</span>
+                    <span>{paragraph.authorName}</span>
+                  </header>
+                  <p>{paragraph.text}</p>
+                </article>
+              </div>
             </div>
-            <article className="canon-entry">
-              <div className="entry-meta"><span>Paragraf {entry.sequenceNumber}</span><span>{paragraph.authorName}</span></div>
-              <p>{paragraph.text}</p>
-            </article>
-          </div>
-        )
-      })}
+          )
+        })}
 
-      <aside className="canon-pending">
-        <span>Teraz</span>
-        <div>
-          <strong>Runda {latestRound?.number}</strong>
-          <p>
-            {latestRound && getSelectedOption(story, latestRound.id)
-              ? 'Wybrana opcja czeka na zwycięski paragraf.'
-              : 'Czekamy na wybór ścieżki.'}
-          </p>
-        </div>
-        <Link to="/mapa">Zobacz na mapie <ArrowUpRight size={16} aria-hidden="true" /></Link>
-      </aside>
+        <aside className="canon-pending">
+          <div className="canon-pending-summary">
+            <strong>RUNDA {latestRound?.number ?? '--'} // OCZEKUJE</strong>
+            <p>Wybierz jedną z trzech opcji.</p>
+          </div>
+          <div className="canon-pending-options" aria-label="Opcje do wyboru">
+            {pendingOptions.map((option) => (
+              <div className="canon-pending-option" key={option.id}>
+                <strong>OPCJA {option.label}</strong>
+                <p>{option.text}</p>
+              </div>
+            ))}
+          </div>
+          <Link to="/mapa">Otwórz mapę <ArrowUpRight size={16} aria-hidden="true" /></Link>
+        </aside>
+      </div>
     </section>
   )
 }

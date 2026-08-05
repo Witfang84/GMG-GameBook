@@ -87,7 +87,7 @@ export const story: StoryData = {
   },
   openingParagraph: {
     id: 'opening',
-    authorName: 'Kubulozaurus',
+    authorName: 'Kubulozaurus.Rex',
     publishedAt: '2020-07-19T21:00:00Z',
     text: 'Jesteśmy dzielną załogą Szczura nr 16. Pracuje i żyje nas w tym ogromnym biomechanicznym gryzoniu 300 ludzi. Chodzimy nim po Nieskończonym Labiryncie w Fundacji Rozwoju. Szukamy żywności i zasobów, by wrócić z nimi do Gniazda. To metropolia pośrodku Labiryntu, baza dla setek Szczurów takich jak nasz. Nie bój się Kota, to tylko mit.',
   },
