@@ -1,11 +1,14 @@
-import { ArrowUpRight, Archive, BookOpen, GitBranch, Map } from 'lucide-react'
+import { ArrowUpRight, BookOpen, Clock, Map } from 'lucide-react'
+import * as React from 'react'
 import { Link, NavLink, Route, Routes } from 'react-router-dom'
 import {
   getCanonicalEntries,
+  getActiveRound,
   getSelectedOption,
   getSubmission,
   story,
 } from './domain/story'
+import { MapPage } from './components/MapPage'
 import './App.css'
 
 const formatDate = (date: string) =>
@@ -14,6 +17,43 @@ const formatDate = (date: string) =>
     month: 'long',
     year: 'numeric',
   }).format(new Date(date))
+
+const getTimeRemaining = (deadline: string, now: number) => {
+  const totalSeconds = Math.max(0, Math.floor((new Date(deadline).getTime() - now) / 1000))
+
+  return {
+    expired: totalSeconds === 0,
+    days: Math.floor(totalSeconds / 86400),
+    hours: Math.floor((totalSeconds % 86400) / 3600),
+    minutes: Math.floor((totalSeconds % 3600) / 60),
+    seconds: totalSeconds % 60,
+  }
+}
+
+function DeadlineCountdown({ deadline }: { deadline?: string }) {
+  const [now, setNow] = React.useState(() => Date.now())
+
+  React.useEffect(() => {
+    if (!deadline) return undefined
+    const timer = window.setInterval(() => setNow(Date.now()), 1000)
+    return () => window.clearInterval(timer)
+  }, [deadline])
+
+  if (!deadline) return <span className="deadline-missing">Termin do ustalenia</span>
+
+  const remaining = getTimeRemaining(deadline, now)
+  if (remaining.expired) return <span className="deadline-missing">Termin minął</span>
+
+  return (
+    <span className="deadline-countdown" aria-live="polite">
+      <Clock size={17} aria-hidden="true" />
+      <strong>{remaining.days}d</strong>
+      <strong>{String(remaining.hours).padStart(2, '0')}g</strong>
+      <strong>{String(remaining.minutes).padStart(2, '0')}m</strong>
+      <strong>{String(remaining.seconds).padStart(2, '0')}s</strong>
+    </span>
+  )
+}
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -25,8 +65,6 @@ function Layout({ children }: { children: React.ReactNode }) {
         </Link>
         <nav aria-label="Główna nawigacja">
           <NavLink to="/kanon">Kanon</NavLink>
-          <NavLink to="/rundy">Rundy</NavLink>
-          <NavLink to="/zgloszenia">Archiwum</NavLink>
           <NavLink to="/mapa">Mapa</NavLink>
         </nav>
       </header>
@@ -40,7 +78,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 }
 
 function HomePage() {
-  const latestRound = story.rounds.at(-1)
+  const latestRound = getActiveRound(story) ?? story.rounds.at(-1)
   const canonCount = getCanonicalEntries(story).length + 1
   const selectedOption = latestRound
     ? getSelectedOption(story, latestRound.id)
@@ -79,6 +117,7 @@ function HomePage() {
           Zgłoszenia można dodawać do{' '}
           {latestRound?.submissionDeadline ? formatDate(latestRound.submissionDeadline) : 'ustalenia'}.
         </p>
+        <DeadlineCountdown deadline={latestRound?.submissionDeadline} />
       </section>
 
       <section className="path-overview" aria-labelledby="overview-heading">
@@ -95,7 +134,7 @@ function HomePage() {
             <span>fragmenty w kanonie</span>
           </article>
           <article>
-            <strong>{story.submissions.length}</strong>
+            <strong>{story.openingSubmissions.length + story.submissions.length}</strong>
             <span>zachowanych zgłoszeń</span>
           </article>
           <article>
@@ -106,16 +145,6 @@ function HomePage() {
       </section>
 
       <section className="explore-grid" aria-label="Przejdź do widoku">
-        <Link className="explore-link" to="/rundy">
-          <GitBranch size={22} aria-hidden="true" />
-          <span><strong>Rundy</strong>Prześledź decyzje i ich kontekst.</span>
-          <ArrowUpRight size={18} aria-hidden="true" />
-        </Link>
-        <Link className="explore-link" to="/zgloszenia">
-          <Archive size={22} aria-hidden="true" />
-          <span><strong>Archiwum</strong>Przeczytaj także ścieżki poza kanonem.</span>
-          <ArrowUpRight size={18} aria-hidden="true" />
-        </Link>
         <Link className="explore-link" to="/mapa">
           <Map size={22} aria-hidden="true" />
           <span><strong>Mapa historii</strong>Zobacz wszystkie rozgałęzienia.</span>
@@ -206,7 +235,7 @@ function App() {
         <Route path="/kanon" element={<CanonPage />} />
         <Route path="/rundy" element={<ComingSoonPage title="Rundy" />} />
         <Route path="/zgloszenia" element={<ComingSoonPage title="Archiwum zgłoszeń" />} />
-        <Route path="/mapa" element={<ComingSoonPage title="Mapa historii" />} />
+        <Route path="/mapa" element={<MapPage />} />
       </Routes>
     </Layout>
   )
