@@ -57,9 +57,10 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 .map-canvas .react-flow__controls-button:hover { background: var(--primary); color: var(--surface); }
 .map-canvas .react-flow__handle { width: 7px; height: 7px; border: 1px solid var(--primary); border-radius: 0; background: var(--surface); }
 .map-canvas .react-flow__edge-path { stroke: var(--secondary); stroke-width: 1.5; }
+.map-canvas .react-flow__edge.animated .canonical-edge-mask { stroke: var(--surface) !important; stroke-width: 5px !important; stroke-dasharray: none !important; animation: none !important; pointer-events: none; }
 .story-node { width: 496px; height: auto; padding: 14px 16px 15px; border: 1px solid var(--outline); border-radius: 0; background: var(--surface-container-low, #f6f3ec); color: var(--on-surface); box-shadow: none; cursor: pointer; }
 .story-node:hover, .story-node.selected { border-color: var(--primary); }
-.story-node.is-canonical { border: 2px solid var(--secondary); background: var(--surface-container-low, #f6f3ec); }
+.story-node.is-canonical { border: 2px solid var(--secondary); background: var(--secondary-container); color: var(--on-secondary-container, #006e6e); }
 .story-node.is-selected { border-color: var(--secondary); background: var(--secondary-container); color: var(--on-secondary-container, #006e6e); }
 .story-node-round { background: var(--primary); color: var(--surface); border-color: var(--primary); }
 .story-node-round .story-node-subtitle, .story-node-round .story-node-kicker { color: var(--surface-container-high); }
@@ -74,10 +75,20 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 .story-node p { display: -webkit-box; overflow: hidden; margin: 12px 0 0; color: var(--on-surface-variant); font: 12px/1.4 'Space Grotesk', sans-serif; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
 .story-node-full-text { display: block !important; overflow: visible !important; margin: 0 !important; color: var(--on-surface-variant) !important; font: 14px/1.55 'Space Grotesk', sans-serif !important; }
 .story-node-round p { color: var(--surface-container-high); }
-.story-node-round.is-canonical { color: var(--on-surface); border-color: var(--secondary); background: var(--surface-container-low, #f6f3ec); }
-.story-node-round.is-canonical .story-node-kicker { color: var(--secondary); }
+.story-node-round.is-canonical {
+	padding: 20px 22px 24px;
+	border: 2px solid var(--secondary);
+	background: var(--secondary-container);
+	box-shadow: none;
+	color: var(--on-secondary-container, #006e6e);
+}
+.story-node-round.is-canonical .story-node-kicker {
+	margin-bottom: 9px;
+	color: var(--secondary);
+}
 .story-node-round.is-canonical .story-node-subtitle { color: var(--on-surface-variant); }
-.story-node-round.is-canonical p { color: var(--on-surface-variant); }
+.story-node-round.is-canonical .story-node-author { margin-bottom: 14px !important; font-size: 16px; }
+.story-node-round.is-canonical p { color: var(--on-surface-variant); font-size: 15px !important; line-height: 1.55 !important; }
 @media (max-width: 700px) { .site-header, main, .site-footer { width: min(100% - 32px, 1160px); }.site-header { min-height: auto; padding: 18px 0 0; align-items: flex-start; gap: 18px; flex-direction: column; }.site-header nav { width: 100%; overflow-x: auto; gap: 20px; }.site-header nav a { padding: 4px 0 14px; white-space: nowrap; }.home-hero { min-height: 500px; padding: 64px 26px 45px; }.hero-copy { font-size: 18px; }.hero-actions { align-items: flex-start; flex-direction: column; }.status-band, .path-overview { grid-template-columns: 1fr; gap: 28px; padding: 45px 0; }.explore-grid { grid-template-columns: 1fr; }.explore-link { min-height: 115px; border-right: 0; border-bottom: 1px solid #cfc2ad; }.reading-layout { padding: 56px 0; }.reading-header h1, .placeholder-page h1 { font-size: 48px; }.canon-entry { padding: 24px 21px; }.canon-entry p { font-size: 20px; }.canon-pending { grid-template-columns: 25px 1fr; }.canon-pending a { grid-column: 2; }.site-footer { gap: 10px; flex-direction: column; }.placeholder-page { padding: 72px 0; } }
 @media (max-width: 700px) { .map-page { padding: 54px 0 56px; }.map-header { display: block; margin-bottom: 30px; }.map-header h1 { font-size: 48px; }.map-summary { margin-top: 28px; }.map-canvas { height: 560px; } }
 

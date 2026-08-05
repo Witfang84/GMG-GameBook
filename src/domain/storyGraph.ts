@@ -94,7 +94,7 @@ const makeEdge = (
   id: `${source}-${target}`,
   source,
   target,
-  type: 'smoothstep',
+  type: canonical ? 'canonical' : 'smoothstep',
   data: { canonical, inferred },
   animated: canonical,
 })
@@ -271,6 +271,8 @@ export function createStoryGraph(data: StoryData) {
         + verticalGap
     })
   })
+
+  edges.sort((firstEdge, secondEdge) => Number(firstEdge.data?.canonical ?? false) - Number(secondEdge.data?.canonical ?? false))
 
   return { nodes, edges }
 }
