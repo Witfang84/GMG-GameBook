@@ -1,9 +1,12 @@
 import {
   Background,
+  BaseEdge,
   Controls,
+  getSmoothStepPath,
   Handle,
   Position,
   ReactFlow,
+  type EdgeProps,
   type NodeProps,
 } from '@xyflow/react'
 import { ArrowUpRight } from 'lucide-react'
@@ -20,6 +23,39 @@ const nodeLabels: Record<StoryNodeData['kind'], string> = {
   option: 'Opcja',
   submission: 'Zgłoszenie',
   unassigned: 'Relacja',
+}
+
+function CanonicalEdge({
+  sourceX,
+  sourceY,
+  sourcePosition,
+  targetX,
+  targetY,
+  targetPosition,
+  markerStart,
+  markerEnd,
+  interactionWidth,
+}: EdgeProps) {
+  const [path] = getSmoothStepPath({
+    sourceX,
+    sourceY,
+    sourcePosition,
+    targetX,
+    targetY,
+    targetPosition,
+  })
+
+  return (
+    <>
+      <path aria-hidden="true" className="canonical-edge-mask" d={path} fill="none" />
+      <BaseEdge
+        path={path}
+        markerStart={markerStart}
+        markerEnd={markerEnd}
+        interactionWidth={interactionWidth}
+      />
+    </>
+  )
 }
 
 function StoryNodeCard({ data }: NodeProps<StoryNode>) {
@@ -72,6 +108,7 @@ function StoryNodeCard({ data }: NodeProps<StoryNode>) {
 }
 
 const nodeTypes = { story: StoryNodeCard }
+const edgeTypes = { canonical: CanonicalEdge }
 
 export function MapPage() {
   return (
@@ -95,6 +132,7 @@ export function MapPage() {
               nodes={graph.nodes}
               edges={graph.edges}
               nodeTypes={nodeTypes}
+              edgeTypes={edgeTypes}
               fitView
               fitViewOptions={{ padding: 0.18, minZoom: 0.15, maxZoom: 1 }}
               nodesConnectable={false}
