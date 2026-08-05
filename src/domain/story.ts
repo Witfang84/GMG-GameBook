@@ -7,6 +7,8 @@ export type SubmissionStatus =
   | 'unchosen-option'
   | 'withdrawn'
 
+import { openingSubmissions, roundSubmissions } from './submissions'
+
 export interface Contest {
   id: string
   title: string
@@ -39,6 +41,14 @@ export interface Submission {
   submittedAt: string
 }
 
+export interface OpeningSubmission {
+  id: string
+  queueNumber: number
+  authorName: string
+  text: string
+  status: SubmissionStatus
+}
+
 export interface Round {
   id: string
   number: number
@@ -62,6 +72,7 @@ export interface StoryData {
   openingParagraph: OpeningParagraph
   rounds: Round[]
   options: Option[]
+  openingSubmissions: OpeningSubmission[]
   submissions: Submission[]
   canonEntries: CanonEntry[]
 }
@@ -84,7 +95,7 @@ export const story: StoryData = {
     {
       id: 'round-2',
       number: 2,
-      parentCanonParagraphId: 'opening',
+      parentCanonParagraphId: 'opening-submission-5',
       prompt: 'Kiza, jesteś doświadczoną szczurzą załogantką i pierwszym oficerem kapitana Nezumiego. Wracacie Szczurem nr 16 z czteromiesięcznej tułaczki. Epidemia nieznanej choroby zabiła sześćdziesięciu załogantów, lecz później znaleźliście żyzną dolinę pod sztucznym słońcem, pełną jadalnych owoców, korzeni, ziół i ryb. Odkryliście też wielkie jajo, w którym odnotowaliście życie. Szczur nie chciał się do niego zbliżyć, a po załadowaniu jaja do ochronnego magazynu przyspieszył, jakby pragnął jak najszybciej dostarczyć je do Gniazda. Dwa dni przed domem drogę blokuje zawalony korytarz. Pod kamieniami wystają strzępy granatowego materiału, a ściany noszą ślady wielkich pazurów. Nezumi wysyła ciebie i trójkę Kozaków, by zbadać miejsce w świetle Szczura; jednemu z nich każe wziąć miotacz ognia.',
       status: 'completed',
       createdAt: '2020-07-19T21:00:00Z',
@@ -94,7 +105,7 @@ export const story: StoryData = {
     {
       id: 'round-3',
       number: 3,
-      parentCanonParagraphId: 'submission-2-2',
+      parentCanonParagraphId: 'submission-2-8',
       status: 'completed',
       createdAt: '2020-07-26T22:00:00Z',
       decidedAt: '2020-08-02T22:00:00Z',
@@ -103,9 +114,10 @@ export const story: StoryData = {
     {
       id: 'round-4',
       number: 4,
-      parentCanonParagraphId: 'submission-3-2',
+      parentCanonParagraphId: 'submission-3-1',
       status: 'collecting-submissions',
       createdAt: '2020-08-02T22:00:00Z',
+      submissionDeadline: '2026-08-09T20:00:00Z',
     },
   ],
   options: [
@@ -166,35 +178,17 @@ export const story: StoryData = {
       text: 'Słyszysz metaliczną eksplozję za plecami. Burta Szczura 16 jest rozrywana od środka, więc pędzisz z ratunkiem.',
     },
   ],
-  submissions: [
-    {
-      id: 'submission-2-2',
-      roundId: 'round-2',
-      optionId: 'option-2-2',
-      authorName: 'Zwycięzca rundy 2',
-      submittedAt: '2020-07-26T22:00:00Z',
-      status: 'winner',
-      text: 'Kleszcze mech-ramienia zgrzytają na głazach. Co chwilę przecieracie wizjery z osiadającego, lepkiego pyłu. W końcu praca ustaje. Cisza. Kozak z miotaczem ognia nie potrafi opanować drżenia rąk. Klekot jego broni niesie się po korytarzu słabym echem. Przechodzi cię zimny dreszcz. Przed wami leży rozszarpany sztandar Szczura 13.',
-    },
-    {
-      id: 'submission-3-2',
-      roundId: 'round-3',
-      optionId: 'option-3-2',
-      authorName: 'Zwycięzca rundy 3',
-      submittedAt: '2020-08-02T22:00:00Z',
-      status: 'winner',
-      text: 'Kozacy natychmiast ruszają do dalszej pracy. Niedługo potem spod zwałowiska wyciągacie dowody katastrofy: powłokę szczurzego ogona, hełm z wyrytą liczbą 13, poszarpany skafander. Poruszył się! Odkopujecie rannego Kozaka. Łapczywie pije wodę z bukłaka, który mu podstawiasz do ust. Jego wargi wypowiadają nieme „Jajo. To pułapka”.',
-    },
-  ],
+  openingSubmissions,
+  submissions: roundSubmissions,
   canonEntries: [
     {
       sequenceNumber: 2,
-      paragraphId: 'submission-2-2',
+      paragraphId: 'submission-2-8',
       chosenOptionId: 'option-2-2',
     },
     {
       sequenceNumber: 3,
-      paragraphId: 'submission-3-2',
+      paragraphId: 'submission-3-1',
       chosenOptionId: 'option-3-2',
     },
   ],
@@ -210,6 +204,10 @@ export function getSelectedOption(data: StoryData, roundId: string) {
 
 export function getRoundSubmissions(data: StoryData, roundId: string) {
   return data.submissions.filter((submission) => submission.roundId === roundId)
+}
+
+export function getActiveRound(data: StoryData) {
+  return data.rounds.find((round) => round.status === 'collecting-submissions')
 }
 
 export function getCanonicalEntries(data: StoryData) {
