@@ -1,15 +1,15 @@
-import { ArrowUpRight, BookOpen, Clock, Map } from 'lucide-react'
-import * as React from 'react'
-import { Link, NavLink, Route, Routes } from 'react-router-dom'
+import { ArrowUpRight, BookOpen, Map as MapIcon, Terminal, Settings2 } from 'lucide-react'
+import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
 import {
   getCanonicalEntries,
-  getActiveRound,
   getSelectedOption,
   getSubmission,
   story,
 } from './domain/story'
 import { MapPage } from './components/MapPage'
+import ratAsset from './assets/szczur-16-blueprint 1.png'
 import './App.css'
+import '@xyflow/react/dist/style.css'
 
 const formatDate = (date: string) =>
   new Intl.DateTimeFormat('pl-PL', {
@@ -18,140 +18,108 @@ const formatDate = (date: string) =>
     year: 'numeric',
   }).format(new Date(date))
 
-const getTimeRemaining = (deadline: string, now: number) => {
-  const totalSeconds = Math.max(0, Math.floor((new Date(deadline).getTime() - now) / 1000))
-
-  return {
-    expired: totalSeconds === 0,
-    days: Math.floor(totalSeconds / 86400),
-    hours: Math.floor((totalSeconds % 86400) / 3600),
-    minutes: Math.floor((totalSeconds % 3600) / 60),
-    seconds: totalSeconds % 60,
-  }
-}
-
-function DeadlineCountdown({ deadline }: { deadline?: string }) {
-  const [now, setNow] = React.useState(() => Date.now())
-
-  React.useEffect(() => {
-    if (!deadline) return undefined
-    const timer = window.setInterval(() => setNow(Date.now()), 1000)
-    return () => window.clearInterval(timer)
-  }, [deadline])
-
-  if (!deadline) return <span className="deadline-missing">Termin do ustalenia</span>
-
-  const remaining = getTimeRemaining(deadline, now)
-  if (remaining.expired) return <span className="deadline-missing">Termin minął</span>
-
-  return (
-    <span className="deadline-countdown" aria-live="polite">
-      <Clock size={17} aria-hidden="true" />
-      <strong>{remaining.days}d</strong>
-      <strong>{String(remaining.hours).padStart(2, '0')}g</strong>
-      <strong>{String(remaining.minutes).padStart(2, '0')}m</strong>
-      <strong>{String(remaining.seconds).padStart(2, '0')}s</strong>
-    </span>
-  )
-}
-
 function Layout({ children }: { children: React.ReactNode }) {
+  const location = useLocation()
+  const isHome = location.pathname === '/'
+
   return (
-    <div className="app-shell">
-      <header className="site-header">
-        <Link className="wordmark" to="/" aria-label={`${story.contest.title} - strona główna`}>
-          <span className="wordmark-mark">SN16</span>
-          <span>{story.contest.title}</span>
-        </Link>
-        <nav aria-label="Główna nawigacja">
-          <NavLink to="/kanon">Kanon</NavLink>
-          <NavLink to="/mapa">Mapa</NavLink>
-        </nav>
-      </header>
+    <div className={`app-shell${isHome ? ' home-shell' : ''}`}>
+      {isHome ? null : (
+        <header className="site-header">
+          <Link className="wordmark" to="/" aria-label={`${story.contest.title} - strona główna`}>
+            <span className="wordmark-mark">SN16</span>
+            <span>{story.contest.title}</span>
+          </Link>
+          <nav aria-label="Główna nawigacja">
+            <NavLink to="/kanon">Kanon</NavLink>
+            <NavLink to="/rundy">Rundy</NavLink>
+            <NavLink to="/zgloszenia">Archiwum</NavLink>
+            <NavLink to="/mapa">Mapa</NavLink>
+          </nav>
+        </header>
+      )}
       <main>{children}</main>
-      <footer className="site-footer">
-        <span>Wspólna opowieść, zachowane wszystkie ścieżki.</span>
-        <span>Stan konkursu: {story.contest.status === 'open' ? 'otwarty' : 'zamknięty'}</span>
-      </footer>
+      {isHome ? null : (
+        <footer className="site-footer">
+          <span>Wspólna opowieść, zachowane wszystkie ścieżki.</span>
+          <span>Stan konkursu: {story.contest.status === 'open' ? 'otwarty' : 'zamknięty'}</span>
+        </footer>
+      )}
     </div>
   )
 }
 
 function HomePage() {
-  const latestRound = getActiveRound(story) ?? story.rounds.at(-1)
-  const canonCount = getCanonicalEntries(story).length + 1
-  const selectedOption = latestRound
-    ? getSelectedOption(story, latestRound.id)
-    : undefined
+  const latestRound = story.rounds.at(-1)
+  const isOpen = story.contest.status === 'open'
+  const roundNumber = latestRound?.number.toString().padStart(2, '0') ?? '--'
+  const deadline = latestRound?.submissionDeadline
+    ? formatDate(latestRound.submissionDeadline)
+    : 'DO USTALENIA'
 
   return (
-    <>
-      <section className="home-hero">
-        <p className="eyebrow">Konkursowa paragrafówka</p>
-        <h1>{story.contest.title}</h1>
-        <p className="hero-copy">{story.contest.description}</p>
-        <div className="hero-actions">
-          <Link className="button button-primary" to="/kanon">
-            <BookOpen size={18} aria-hidden="true" /> Czytaj kanon
-          </Link>
-          <Link className="text-link" to="/mapa">
-            Zobacz drzewo historii <ArrowUpRight size={17} aria-hidden="true" />
-          </Link>
-        </div>
-        <div className="hero-rule" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-        </div>
-      </section>
-
-      <section className="status-band" aria-labelledby="status-heading">
-        <div>
-          <p className="eyebrow">Teraz trwa</p>
-          <h2 id="status-heading">Runda {latestRound?.number}: wybór ścieżki</h2>
-        </div>
-        <p>
-          {selectedOption
-            ? `Wybrano opcję ${selectedOption.label}. `
-            : 'Wybierz jedną z trzech opcji. '}
-          Zgłoszenia można dodawać do{' '}
-          {latestRound?.submissionDeadline ? formatDate(latestRound.submissionDeadline) : 'ustalenia'}.
-        </p>
-        <DeadlineCountdown deadline={latestRound?.submissionDeadline} />
-      </section>
-
-      <section className="path-overview" aria-labelledby="overview-heading">
-        <div className="section-intro">
-          <p className="eyebrow">Oficjalna ścieżka</p>
-          <h2 id="overview-heading">Kanon rośnie fragment po fragmencie.</h2>
-          <p>
-            Oceniający wybiera tekst, a grupa decyduje, w którą stronę historia pójdzie dalej.
-          </p>
-        </div>
-        <div className="stat-grid">
-          <article>
-            <strong>{canonCount}</strong>
-            <span>fragmenty w kanonie</span>
-          </article>
-          <article>
-            <strong>{story.openingSubmissions.length + story.submissions.length}</strong>
-            <span>zachowanych zgłoszeń</span>
-          </article>
-          <article>
-            <strong>{story.rounds.length}</strong>
-            <span>rozegrane rundy</span>
-          </article>
-        </div>
-      </section>
-
-      <section className="explore-grid" aria-label="Przejdź do widoku">
-        <Link className="explore-link" to="/mapa">
-          <Map size={22} aria-hidden="true" />
-          <span><strong>Mapa historii</strong>Zobacz wszystkie rozgałęzienia.</span>
-          <ArrowUpRight size={18} aria-hidden="true" />
+    <div className="home-screen">
+      <div className="screen-noise" aria-hidden="true" />
+      <header className="console-header">
+        <Link className="console-prompt" to="/" aria-label="Szczur numer 16, strona główna">
+          <Terminal size={15} strokeWidth={2.5} aria-hidden="true" />
+          <span>&gt; SZCZUR_NR_16 // KONSOLA ZAŁOGANTA</span>
         </Link>
+        <span className={`console-status${isOpen ? ' is-active' : ''}`}>
+          STATUS: {isOpen ? 'AKTYWNY' : 'ZAMKNIĘTY'}
+        </span>
+      </header>
+
+      <section className="directive-hero" aria-labelledby="directive-title">
+        <div className="rat-art">
+          <img className="rat-image" src={ratAsset} alt="Biomechaniczny Szczur numer 16" />
+        </div>
+        <h1 id="directive-title">GŁÓWNA DYREKTYWA</h1>
+        <p className="directive-copy">
+          PODĄŻAJ ZA SZCZUREM 16 PRZEZ NIESKOŃCZONY LABIRYNT.<br />
+          UNIKAJ KOTA.
+        </p>
       </section>
-    </>
+
+      <section className="console-panels" aria-label="Moduły konsoli">
+        <Link className="console-panel" to="/kanon">
+          <div className="panel-heading">
+            <span>[ PLIKI ]</span>
+            <BookOpen size={16} aria-hidden="true" />
+          </div>
+          <div className="panel-content">
+            <strong>CZYTAJ KANON</strong>
+            <span>TO CO KAŻDY ZAŁOGANT WIEDZIEĆ POWINIEN</span>
+          </div>
+        </Link>
+        <Link className="console-panel" to="/mapa">
+          <div className="panel-heading">
+            <span>[ DANE ]</span>
+            <MapIcon size={16} aria-hidden="true" />
+          </div>
+          <div className="panel-content">
+            <strong>DRZEWO HISTORII</strong>
+            <span>ZASŁUŻENI W BOJU I ODZNACZENI ZAŁOGANCI</span>
+          </div>
+        </Link>
+        <div className="console-panel console-panel-system">
+          <div className="panel-heading">
+            <span>[ SYSTEM ]</span>
+            <Settings2 size={16} aria-hidden="true" />
+          </div>
+          <dl className="system-readout">
+            <div><dt>RUNDA:</dt><dd>{roundNumber}</dd></div>
+            <div><dt>TERMIN:</dt><dd>{deadline}</dd></div>
+            <div><dt>DO KOŃCA:</dt><dd>16_BIO</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <footer className="home-footer">
+        <span>VER_SYS_1.0</span>
+        <span>ZALOGOWANY ZAŁOGANT: WITFANG</span>
+      </footer>
+    </div>
   )
 }
 
