@@ -84,6 +84,11 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 	margin: 0 auto;
 }
 
+.home-shell .site-header,
+.home-shell .site-footer {
+	width: min(100% - 48px, 912px);
+}
+
 .home-screen {
 	position: relative;
 	min-height: 100svh;
@@ -120,6 +125,11 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 	font-size: 12px;
 	font-weight: 700;
 	text-transform: uppercase;
+}
+
+.app-console-header {
+	width: min(100% - 48px, 912px);
+	margin: 24px auto 0;
 }
 
 .console-prompt {
@@ -274,9 +284,58 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 	letter-spacing: .08em;
 }
 
+.app-console-footer {
+	width: min(100% - 48px, 912px);
+	margin: 0 auto 24px;
+}
+
+.canon-shell .site-header {
+	min-height: 46px;
+	margin-top: 24px;
+	padding: 0 13px;
+	background: var(--surface-container);
+	border: 0;
+	font-size: 12px;
+}
+
+.canon-shell .wordmark {
+	font-size: 11px;
+	letter-spacing: .08em;
+}
+
+.canon-shell .wordmark-mark {
+	width: 24px;
+	height: 24px;
+	font-size: 8px;
+}
+
+.canon-shell .site-header nav {
+	gap: 18px;
+}
+
+.canon-shell .site-header nav a {
+	padding: 15px 0 12px;
+	font-size: 10px;
+}
+
+.canon-shell .site-footer {
+	margin-top: 0;
+	padding: 11px 13px 18px;
+	border-top: 2px solid var(--outline-variant);
+	color: var(--outline-variant);
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+}
+
 @media (max-width: 700px) {
 	.home-shell main { width: min(100% - 32px, 912px); }
 	.home-screen { padding-top: 16px; }
+	.app-console-header {
+		width: min(100% - 32px, 912px);
+		margin-top: 16px;
+	}
 	.console-header { align-items: flex-start; flex-direction: column; gap: 10px; padding: 12px; }
 	.console-status { align-self: flex-end; margin-top: -31px; }
 	.directive-hero { padding: 34px 0 32px; }
@@ -288,6 +347,10 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 	.console-panels { grid-template-columns: 1fr; gap: 12px; }
 	.console-panel { min-height: 108px; }
 	.home-footer { gap: 12px; margin-top: 54px; flex-direction: column; }
+	.app-console-footer {
+		width: min(100% - 32px, 912px);
+		margin-top: 0;
+	}
 }
 
 .map-page {
@@ -449,4 +512,287 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 	.map-back-link { align-self: flex-start; }
 	.story-map { height: 540px; margin-top: 16px; }
 	.story-map .react-flow__minimap { display: none; }
+}
+
+.site-header {
+	min-height: 72px;
+	border-bottom: 2px solid var(--primary);
+	font-family: 'Space Grotesk', sans-serif;
+}
+
+.wordmark { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; }
+.wordmark-mark { background: var(--primary); color: var(--surface); }
+.site-header nav { gap: 24px; }
+.site-header nav a {
+	padding: 27px 0 23px;
+	color: var(--on-surface-variant);
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: .1em;
+	text-transform: uppercase;
+}
+.site-header nav a.active { color: var(--on-surface); border-color: var(--secondary); }
+
+.canon-page {
+	position: relative;
+	max-width: none;
+	padding: 56px 0 72px;
+	isolation: isolate;
+}
+
+.canon-page::before {
+	position: absolute;
+	z-index: -2;
+	inset: 0;
+	background-image: linear-gradient(rgba(68, 71, 74, .025) 1px, transparent 1px), linear-gradient(90deg, rgba(68, 71, 74, .025) 1px, transparent 1px);
+	background-size: 24px 24px;
+	content: '';
+	pointer-events: none;
+}
+
+.canon-header {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 32px;
+	align-items: end;
+	padding-bottom: 28px;
+	border-bottom: 2px solid var(--primary);
+}
+
+.canon-page .eyebrow {
+	margin-bottom: 14px;
+	color: var(--secondary);
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: .1em;
+}
+
+.canon-header h1 {
+	max-width: none;
+	margin: 0 0 14px;
+	font-size: clamp(44px, 7vw, 72px);
+	font-weight: 700;
+	line-height: 1;
+}
+
+.canon-header > div > p:last-child {
+	max-width: 610px;
+	margin: 0;
+	color: var(--on-surface-variant);
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+.canon-readout {
+	display: grid;
+	gap: 8px;
+	margin: 0;
+	padding: 12px 0 12px 16px;
+	border-left: 2px solid var(--secondary);
+	background: var(--surface-container);
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: .08em;
+}
+
+.canon-readout div { display: flex; justify-content: space-between; gap: 12px; }
+.canon-readout dt { color: var(--outline); }
+.canon-readout dd { margin: 0; text-align: right; }
+.canon-readout .is-online { color: var(--on-tertiary-container); }
+
+.canon-stream { max-width: 900px; padding-top: 32px; }
+
+.canon-record {
+	padding: 20px 22px 24px;
+	border: 2px solid var(--primary);
+	background: var(--surface-container-lowest);
+}
+
+.canon-record-opening {
+	background: var(--primary);
+	color: var(--surface);
+}
+
+.canon-record-header {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	gap: 16px;
+	align-items: center;
+	margin-bottom: 18px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid currentColor;
+	color: var(--outline);
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: .1em;
+	text-transform: uppercase;
+}
+
+.canon-record:not(.canon-record-opening) .canon-record-header {
+	grid-template-columns: 1fr auto;
+}
+
+.canon-record-opening .canon-record-header { color: var(--primary-fixed-dim, #c2c7cd); }
+.canon-record-id { color: var(--secondary); }
+.canon-record-opening .canon-record-id { color: var(--secondary-container); }
+.canon-record-header span:last-child { text-align: right; }
+.canon-record p { margin: 0; font-size: 18px; line-height: 1.6; }
+
+.canon-sequence-step {
+	display: grid;
+	grid-template-columns: 58px minmax(0, 1fr);
+	gap: 16px;
+	margin-top: 24px;
+}
+
+.canon-sequence-rail {
+	position: relative;
+	border-right: 2px solid var(--secondary);
+}
+
+.canon-sequence-rail::after {
+	position: absolute;
+	top: 15px;
+	right: -5px;
+	width: 8px;
+	height: 8px;
+	background: var(--secondary);
+	content: '';
+}
+
+.canon-sequence-rail span {
+	display: block;
+	padding-top: 8px;
+	color: var(--secondary);
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: .08em;
+	text-align: center;
+}
+
+.canon-sequence-content { min-width: 0; }
+
+.canon-transition {
+	padding: 15px 17px 17px;
+	border: 1px solid var(--outline-variant);
+	background: var(--surface-container);
+}
+
+.canon-transition-header {
+	display: flex;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 12px;
+	color: var(--outline);
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: .1em;
+}
+
+.canon-transition p { margin: 0; color: var(--on-surface-variant); font-size: 15px; line-height: 1.55; }
+
+.canon-choice {
+	margin: 18px 0;
+	padding: 11px 16px 13px;
+	border-left: 4px solid var(--secondary);
+	background: var(--secondary-container);
+	color: var(--on-secondary-fixed, #002020);
+}
+
+.canon-choice span {
+	display: block;
+	margin-bottom: 7px;
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: .1em;
+}
+
+.canon-choice strong { font-size: 15px; font-weight: 600; line-height: 1.4; }
+
+.canon-pending {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	gap: 16px 24px;
+	align-items: center;
+	margin-top: 32px;
+	padding: 17px 18px;
+	border: 2px solid var(--secondary);
+	background: var(--tertiary-container);
+	color: var(--on-tertiary-container);
+}
+
+.canon-pending-summary strong { display: block; color: var(--on-surface); font-size: 15px; letter-spacing: .04em; }
+.canon-pending-summary p { margin: 4px 0 0; color: var(--on-surface-variant); font-size: 13px; }
+
+.canon-pending-options {
+	display: grid;
+	grid-column: 1 / -1;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	border-top: 1px solid var(--on-tertiary-container);
+}
+
+.canon-pending-option {
+	min-width: 0;
+	padding: 13px 12px 0;
+	border-right: 1px solid var(--on-tertiary-container);
+}
+
+.canon-pending-option:first-child { padding-left: 0; }
+.canon-pending-option:last-child { padding-right: 0; border-right: 0; }
+.canon-pending-option strong { display: block; margin-bottom: 7px; color: var(--on-surface); font-size: 11px; letter-spacing: .1em; }
+.canon-pending-option p { margin: 0; color: var(--on-surface-variant); font-size: 12px; line-height: 1.45; }
+.canon-pending > a { grid-column: 2; justify-self: end; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+
+.canon-pending a:hover,
+.canon-pending a:focus-visible { color: var(--secondary); outline: none; }
+
+@media (max-width: 700px) {
+	.home-shell .site-header,
+	.home-shell .site-footer {
+		width: min(100% - 32px, 912px);
+	}
+
+	.site-header { padding-top: 16px; }
+	.site-header nav a { padding: 4px 0 14px; }
+	.canon-shell .site-header {
+		align-items: center;
+		flex-direction: row;
+		gap: 12px;
+		margin-top: 16px;
+		padding: 0 13px;
+	}
+	.canon-shell .site-header nav {
+		min-width: 0;
+		overflow-x: auto;
+		gap: 16px;
+	}
+	.canon-shell .site-header nav a {
+		padding: 15px 0 12px;
+		white-space: nowrap;
+	}
+	.canon-page { padding: 38px 0 48px; }
+	.canon-header { grid-template-columns: 1fr; gap: 24px; }
+	.canon-header h1 { font-size: 48px; }
+	.canon-readout { max-width: 280px; }
+	.canon-stream { padding-top: 24px; }
+	.canon-record { padding: 16px 15px 19px; }
+	.canon-record-header { grid-template-columns: 1fr auto; gap: 6px 12px; }
+	.canon-record-header span:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+	.canon-record-header span:last-child { grid-column: 2; grid-row: 1; }
+	.canon-record p { font-size: 17px; }
+	.canon-sequence-step { grid-template-columns: 31px minmax(0, 1fr); gap: 10px; }
+	.canon-sequence-rail span { font-size: 11px; }
+	.canon-pending { grid-template-columns: 1fr; gap: 16px; }
+	.canon-pending-options { grid-template-columns: 1fr; }
+	.canon-pending-option,
+	.canon-pending-option:first-child,
+	.canon-pending-option:last-child {
+		padding: 12px 0 0;
+		border-right: 0;
+		border-bottom: 1px solid var(--on-tertiary-container);
+	}
+	.canon-pending-option:last-child { padding-bottom: 0; border-bottom: 0; }
+	.canon-pending > a { grid-column: 1; justify-self: start; }
 }

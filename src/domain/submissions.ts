@@ -25,14 +25,14 @@ export const openingSubmissions: OpeningSubmission[] = [
   {
     id: 'opening-submission-4',
     queueNumber: 1,
-    authorName: 'Kubulozaurus',
+    authorName: 'Kubulozaurus.Rex',
     text: 'Ludzie nie boją się sięgnąć gwiazd. Nie mają wyjścia. Kulani dokonali szybkiej inwazji dzięki zaawansowanej technologii. Po ostatnich aresztowaniach przywódców rebeliantów, ruch oporu, zwany Fundacją właściwie nie istnieje. Ludzcy żołnierze, dzięki łatwej adaptacji do warunków klimatycznych wchodzą w skład Korpusu Ekspedycyjnego.',
     status: 'unchosen-option',
   },
   {
     id: 'opening-submission-5',
     queueNumber: 1,
-    authorName: 'Kubulozaurus',
+    authorName: 'Kubulozaurus.Rex',
     text: 'Jesteśmy dzielną załogą Szczura nr 16. Pracuje i żyje nas w tym ogromnym biomechanicznym gryzoniu 300 ludzi. Chodzimy nim po Nieskończonym Labiryncie w Fundacji Rozwoju. Szukamy żywności i zasobów, by wrócić z nimi do Gniazda. To metropolia pośrodku Labiryntu, baza dla setek Szczurów takich jak nasz. Nie bój się Kota, to tylko mit.',
     status: 'winner',
   },

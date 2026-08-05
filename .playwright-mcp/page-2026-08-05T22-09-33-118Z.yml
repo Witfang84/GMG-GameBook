@@ -1,0 +1,39 @@
+- main [ref=e13]:
+  - generic [ref=e203]:
+    - generic [ref=e204]:
+      - link "Szczur numer 16, strona główna" [ref=e205] [cursor=pointer]:
+        - /url: "#/"
+        - generic [ref=e208]: "> SZCZUR_NR_16 // KONSOLA ZAŁOGANTA"
+      - generic [ref=e209]: "STATUS: AKTYWNY"
+    - region [ref=e210]:
+      - img "Biomechaniczny Szczur numer 16" [ref=e212]
+      - heading "GŁÓWNA DYREKTYWA" [level=1] [ref=e213]
+      - paragraph [ref=e214]: PODĄŻAJ ZA SZCZUREM 16 PRZEZ NIESKOŃCZONY LABIRYNT.UNIKAJ KOTA.
+    - region "Moduły konsoli" [ref=e215]:
+      - link "[ PLIKI ] CZYTAJ KANON TO CO KAŻDY ZAŁOGANT WIEDZIEĆ POWINIEN" [ref=e216] [cursor=pointer]:
+        - /url: "#/kanon"
+        - generic [ref=e217]: "[ PLIKI ]"
+        - generic [ref=e221]:
+          - strong [ref=e222]: CZYTAJ KANON
+          - generic [ref=e223]: TO CO KAŻDY ZAŁOGANT WIEDZIEĆ POWINIEN
+      - link "[ DANE ] DRZEWO HISTORII ZASŁUŻENI W BOJU I ODZNACZENI ZAŁOGANCI" [ref=e224] [cursor=pointer]:
+        - /url: "#/mapa"
+        - generic [ref=e225]: "[ DANE ]"
+        - generic [ref=e229]:
+          - strong [ref=e230]: DRZEWO HISTORII
+          - generic [ref=e231]: ZASŁUŻENI W BOJU I ODZNACZENI ZAŁOGANCI
+      - generic [ref=e232]:
+        - generic [ref=e233]: "[ SYSTEM ]"
+        - generic [ref=e238]:
+          - generic [ref=e239]:
+            - term [ref=e240]: "RUNDA:"
+            - definition [ref=e241]: "04"
+          - generic [ref=e242]:
+            - term [ref=e243]: "TERMIN:"
+            - definition [ref=e244]: 9 sierpnia 2026
+          - generic [ref=e245]:
+            - term [ref=e246]: "DO KOŃCA:"
+            - definition [ref=e247]: 16_BIO
+    - generic [ref=e248]:
+      - generic [ref=e249]: VER_SYS_1.0
+      - generic [ref=e250]: "ZALOGOWANY ZAŁOGANT: WITFANG"

@@ -1,0 +1,78 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - link "Szczur nr 16 - strona główna" [ref=e5] [cursor=pointer]:
+      - /url: "#/"
+      - generic [ref=e6]: SN16
+      - generic [ref=e7]: Szczur nr 16
+    - navigation "Główna nawigacja" [ref=e8]:
+      - link "Kanon" [ref=e9] [cursor=pointer]:
+        - /url: "#/kanon"
+      - link "Rundy" [ref=e10] [cursor=pointer]:
+        - /url: "#/rundy"
+      - link "Archiwum" [ref=e11] [cursor=pointer]:
+        - /url: "#/zgloszenia"
+      - link "Mapa" [ref=e12] [cursor=pointer]:
+        - /url: "#/mapa"
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - paragraph [ref=e17]: "[ ARCHIWUM // LINIA GŁÓWNA ]"
+          - heading "KANON" [level=1] [ref=e18]
+          - paragraph [ref=e19]: Oficjalny zapis zwycięskich paragrafów Szczura nr 16. Każdy rekord prowadzi do następnej decyzji załogi.
+        - generic "Stan kanonu" [ref=e20]:
+          - generic [ref=e21]:
+            - term [ref=e22]: "REKORDY:"
+            - definition [ref=e23]: "3"
+          - generic [ref=e24]:
+            - term [ref=e25]: "STATUS:"
+            - definition [ref=e26]: ONLINE
+          - generic [ref=e27]:
+            - term [ref=e28]: "NASTĘPNA:"
+            - definition [ref=e29]: R4
+      - generic [ref=e30]:
+        - article [ref=e31]:
+          - generic [ref=e32]:
+            - generic [ref=e33]: RECORD_01
+            - generic [ref=e34]: OPENING PARAGRAPH
+            - generic [ref=e35]: Kubulozaurus
+          - paragraph [ref=e36]: Jesteśmy dzielną załogą Szczura nr 16. Pracuje i żyje nas w tym ogromnym biomechanicznym gryzoniu 300 ludzi. Chodzimy nim po Nieskończonym Labiryncie w Fundacji Rozwoju. Szukamy żywności i zasobów, by wrócić z nimi do Gniazda. To metropolia pośrodku Labiryntu, baza dla setek Szczurów takich jak nasz. Nie bój się Kota, to tylko mit.
+        - generic [ref=e37]:
+          - generic [ref=e38]: "02"
+          - generic [ref=e40]:
+            - article [ref=e41]:
+              - generic [ref=e42]:
+                - generic [ref=e43]: INPUT // RUNDA 1
+                - generic [ref=e44]: PROMPT
+              - paragraph [ref=e45]: Kiza, jesteś doświadczoną szczurzą załogantką i pierwszym oficerem kapitana Nezumiego. Wracacie Szczurem nr 16 z czteromiesięcznej tułaczki. Epidemia nieznanej choroby zabiła sześćdziesięciu załogantów, lecz później znaleźliście żyzną dolinę pod sztucznym słońcem, pełną jadalnych owoców, korzeni, ziół i ryb. Odkryliście też wielkie jajo, w którym odnotowaliście życie. Szczur nie chciał się do niego zbliżyć, a po załadowaniu jaja do ochronnego magazynu przyspieszył, jakby pragnął jak najszybciej dostarczyć je do Gniazda. Dwa dni przed domem drogę blokuje zawalony korytarz. Pod kamieniami wystają strzępy granatowego materiału, a ściany noszą ślady wielkich pazurów. Nezumi wysyła ciebie i trójkę Kozaków, by zbadać miejsce w świetle Szczura; jednemu z nich każe wziąć miotacz ognia.
+            - generic [ref=e46]:
+              - generic [ref=e47]: DECISION // RUNDA 2 // OPCJA 2
+              - strong [ref=e48]: Wychodzisz z trójką Kozaków i za pomocą mech-ramienia próbujecie z odległości uwolnić materiał spod gruzu.
+            - article [ref=e49]:
+              - generic [ref=e50]:
+                - generic [ref=e51]: RECORD_02
+                - generic [ref=e52]: WINNING SUBMISSION
+                - generic [ref=e53]: Green
+              - paragraph [ref=e54]: Kleszcze mech-ramienia zgrzytają na głazach. Co chwilę przecieracie wizjery z osiadającego, lepkiego pyłu. W końcu praca ustaje. Cisza. Kozak z miotaczem ognia nie potrafi opanować drżenia rąk. Klekot jego broni niesie się po korytarzu słabym echem. Przechodzi cię zimny dreszcz. Przed wami leży rozszarpany sztandar Szczura 13.
+        - generic [ref=e55]:
+          - generic [ref=e56]: "03"
+          - generic [ref=e58]:
+            - generic [ref=e59]:
+              - generic [ref=e60]: DECISION // RUNDA 3 // OPCJA 2
+              - strong [ref=e61]: "Składasz raport i rozkazujesz przyspieszyć pracę mech-ramienia: „Tam może jeszcze ktoś żyć!”"
+            - article [ref=e62]:
+              - generic [ref=e63]:
+                - generic [ref=e64]: RECORD_03
+                - generic [ref=e65]: WINNING SUBMISSION
+                - generic [ref=e66]: Baksu
+              - paragraph [ref=e67]: "Kozacy natychmiast ruszają do dalszej pracy. Niedługo potem spod zwałowiska wyciągacie dowody katastrofy: powłokę szczurzego ogona, hełm z wyrytą liczbą 13, poszarpany skafander. Poruszył się! Odkopujecie rannego Kozaka. Łapczywie pije wodę z bukłaka, który mu podstawiasz do ust. Jego wargi wypowiadają nieme „Jajo. To pułapka”."
+        - complementary [ref=e68]:
+          - generic [ref=e69]: NOW
+          - generic [ref=e70]:
+            - strong [ref=e71]: RUNDA 4 // OCZEKUJE
+            - paragraph [ref=e72]: Czekamy na wybór ścieżki.
+          - link "Otwórz mapę" [ref=e73] [cursor=pointer]:
+            - /url: "#/mapa"
+  - contentinfo [ref=e77]:
+    - generic [ref=e78]: Wspólna opowieść, zachowane wszystkie ścieżki.
+    - generic [ref=e79]: "Stan konkursu: otwarty"
