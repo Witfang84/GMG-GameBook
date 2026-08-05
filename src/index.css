@@ -1,7 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 :root {
-  font-family: Georgia, 'Times New Roman', serif;
-  color: #262220;
-  background: #f4efe5;
+  --surface: #fcf9f2;
+  --surface-container: #f1eee7;
+  --surface-container-high: #ebe8e1;
+  --on-surface: #1c1c18;
+  --on-surface-variant: #44474a;
+  --outline: #75777b;
+  --outline-variant: #c5c6ca;
+  --primary: #101519;
+  --secondary: #006a6a;
+  --secondary-container: #94efee;
+  --tertiary-container: #bcf0ae;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--on-surface);
+  background: var(--surface);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
