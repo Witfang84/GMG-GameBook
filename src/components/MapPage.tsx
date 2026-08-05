@@ -6,6 +6,8 @@ import {
   ReactFlow,
   type NodeProps,
 } from '@xyflow/react'
+import { ArrowUpRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { createStoryGraph, type StoryNode, type StoryNodeData } from '../domain/storyGraph'
 import { story } from '../domain/story'
 import '@xyflow/react/dist/style.css'
@@ -106,6 +108,9 @@ export function MapPage() {
           </div>
         </div>
       </div>
+      <Link className="map-back-link" to="/kanon">
+        Przeczytaj kanon <ArrowUpRight size={16} aria-hidden="true" />
+      </Link>
     </section>
   )
 }

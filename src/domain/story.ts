@@ -233,6 +233,16 @@ export function validateStory(data: StoryData) {
       (submission) => submission.status === 'winner',
     )
 
+    for (const submission of roundSubmissions) {
+      const option = options.find((item) => item.id === submission.optionId)
+
+      if (!option) {
+        errors.push(
+          `Zgłoszenie ${submission.id} musi być przypisane do opcji rundy ${round.number}.`,
+        )
+      }
+    }
+
     if (options.length !== 3) {
       errors.push(`Runda ${round.number} musi mieć dokładnie trzy opcje.`)
     }

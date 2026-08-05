@@ -1,4 +1,5 @@
-import { ArrowUpRight, BookOpen, Map as MapIcon, Terminal, Settings2 } from 'lucide-react'
+import { ArrowUpRight, BookOpen, ChevronRight, Map as MapIcon, Terminal, Settings2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Link, Route, Routes, useLocation } from 'react-router-dom'
 import {
   getCanonicalEntries,
@@ -17,6 +18,33 @@ const formatDate = (date: string) =>
     month: 'long',
     year: 'numeric',
   }).format(new Date(date))
+
+const formatCountdown = (deadline?: string) => {
+  if (!deadline) return '--:--:--'
+
+  const remainingSeconds = Math.max(0, Math.floor((new Date(deadline).getTime() - Date.now()) / 1000))
+  const days = Math.floor(remainingSeconds / 86400)
+  const hours = Math.floor((remainingSeconds % 86400) / 3600)
+  const minutes = Math.floor((remainingSeconds % 3600) / 60)
+  const seconds = remainingSeconds % 60
+  const pad = (value: number) => value.toString().padStart(2, '0')
+
+  return `${pad(days)}D ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`
+}
+
+function DeadlineCountdown({ deadline }: { deadline?: string }) {
+  const [countdown, setCountdown] = useState(() => formatCountdown(deadline))
+
+  useEffect(() => {
+    const updateCountdown = () => setCountdown(formatCountdown(deadline))
+    const timerId = window.setInterval(updateCountdown, 1000)
+
+    updateCountdown()
+    return () => window.clearInterval(timerId)
+  }, [deadline])
+
+  return <span aria-live="polite">{countdown}</span>
+}
 
 function ConsoleHeader({ standalone = false }: { standalone?: boolean }) {
   const isOpen = story.contest.status === 'open'
@@ -43,6 +71,28 @@ function ConsoleFooter({ standalone = false }: { standalone?: boolean }) {
   )
 }
 
+const breadcrumbLabels: Record<string, string> = {
+  '/kanon': 'KANON',
+  '/rundy': 'RUNDY',
+  '/zgloszenia': 'ARCHIWUM ZGŁOSZEŃ',
+  '/mapa': 'MAPA ZGŁOSZEŃ',
+}
+
+function Breadcrumbs() {
+  const location = useLocation()
+  const currentLabel = breadcrumbLabels[location.pathname]
+
+  if (!currentLabel) return null
+
+  return (
+    <nav className="breadcrumbs" aria-label="Okruszki nawigacji">
+      <Link to="/">GŁÓWNA DYREKTYWA</Link>
+      <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
+      <span aria-current="page">{currentLabel}</span>
+    </nav>
+  )
+}
+
 function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation()
   const isHome = location.pathname === '/'
@@ -52,6 +102,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className={`app-shell${usesHomeShell ? ' home-shell' : ''}${isCanon ? ' canon-shell' : ''}`}>
       {isHome ? null : <ConsoleHeader standalone />}
+      {!isHome && <Breadcrumbs />}
       <main>{children}</main>
       {isHome ? null : <ConsoleFooter standalone />}
     </div>
@@ -110,7 +161,7 @@ function HomePage() {
           <dl className="system-readout">
             <div><dt>RUNDA:</dt><dd>{roundNumber}</dd></div>
             <div><dt>TERMIN:</dt><dd>{deadline}</dd></div>
-            <div><dt>DO KOŃCA:</dt><dd>16_BIO</dd></div>
+            <div><dt>DO KOŃCA:</dt><dd><DeadlineCountdown deadline={latestRound?.submissionDeadline} /></dd></div>
           </dl>
         </div>
       </section>
