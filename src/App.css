@@ -753,16 +753,6 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 	border-right: 2px solid var(--secondary);
 }
 
-.canon-sequence-rail::after {
-	position: absolute;
-	top: 15px;
-	right: -5px;
-	width: 8px;
-	height: 8px;
-	background: var(--secondary);
-	content: '';
-}
-
 .canon-sequence-rail span {
 	display: block;
 	padding-top: 8px;
