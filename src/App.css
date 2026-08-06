@@ -330,6 +330,23 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 .system-readout dt { color: var(--outline); }
 .system-readout dd { margin: 0; text-align: right; }
 
+.world-page { position: relative; padding: 56px 0 72px; isolation: isolate; }
+.world-page::before { position: absolute; z-index: -2; inset: 0; background-image: linear-gradient(rgba(68, 71, 74, .025) 1px, transparent 1px), linear-gradient(90deg, rgba(68, 71, 74, .025) 1px, transparent 1px); background-size: 24px 24px; content: ''; pointer-events: none; }
+.world-header { display: flex; align-items: end; justify-content: space-between; gap: 32px; padding-bottom: 26px; border-bottom: 2px solid var(--primary); }
+.world-header .eyebrow { margin-bottom: 12px; color: var(--secondary); }
+.world-header h1 { max-width: none; margin: 0 0 10px; font-size: clamp(42px, 7vw, 72px); font-weight: 700; line-height: 1; }
+.world-header p:last-child { max-width: 550px; margin: 0; color: var(--on-surface-variant); font-size: 16px; line-height: 1.5; }
+.world-index { flex: 0 0 auto; padding: 8px 10px; border: 2px solid var(--secondary); color: var(--secondary); font-size: 11px; font-weight: 700; letter-spacing: .08em; }
+.world-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
+.world-entry { min-width: 0; padding: 16px; border: 2px solid var(--primary); background: var(--surface-container-low, #f6f3ec); }
+.world-entry-header { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--outline-variant); color: var(--secondary); font-size: 10px; font-weight: 700; letter-spacing: .08em; }
+.world-entry h2 { margin: 24px 0 10px; font-size: 24px; font-weight: 700; line-height: 1.1; }
+.world-entry > p { min-height: 96px; margin: 0 0 22px; color: var(--on-surface-variant); font-size: 14px; line-height: 1.5; }
+.world-entry-facts { display: grid; gap: 7px; margin: 0; padding-top: 12px; border-top: 2px solid var(--primary); }
+.world-entry-facts div { display: flex; justify-content: space-between; gap: 12px; font-size: 11px; }
+.world-entry-facts dt { color: var(--outline); font-weight: 700; }
+.world-entry-facts dd { margin: 0; font-weight: 700; text-align: right; }
+
 .home-footer {
 	display: flex;
 	justify-content: space-between;
@@ -406,6 +423,11 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 	.console-panels { grid-template-columns: 1fr; gap: 12px; }
 	.console-panel { min-height: 108px; }
 	.home-footer { gap: 12px; margin-top: 54px; flex-direction: column; }
+	.world-page { padding: 38px 0 48px; }
+	.world-header { align-items: flex-start; flex-direction: column; gap: 20px; }
+	.world-header h1 { font-size: 44px; }
+	.world-grid { grid-template-columns: 1fr; margin-top: 16px; }
+	.world-entry > p { min-height: 0; }
 	.app-console-footer {
 		width: min(100% - 32px, 912px);
 		margin-top: 0;

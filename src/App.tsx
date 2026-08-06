@@ -1,4 +1,4 @@
-import { ArrowUpRight, BookOpen, ChevronRight, Map as MapIcon, Terminal, Settings2 } from 'lucide-react'
+import { ArrowUpRight, BookOpen, ChevronRight, Map as MapIcon, Terminal, Telescope } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, Route, Routes, useLocation } from 'react-router-dom'
 import {
@@ -7,6 +7,7 @@ import {
   getSubmission,
   story,
 } from './domain/story'
+import { worldEntries } from './domain/world'
 import { MapPage } from './components/MapPage'
 import ratAsset from './assets/szczur-16-blueprint 1.png'
 import './App.css'
@@ -48,6 +49,8 @@ function DeadlineCountdown({ deadline }: { deadline?: string }) {
 
 function ConsoleHeader({ standalone = false }: { standalone?: boolean }) {
   const isOpen = story.contest.status === 'open'
+  const currentRound = story.rounds.at(-1)
+  const roundLabel = currentRound?.number.toString().padStart(2, '0') ?? '--'
 
   return (
     <header className={`console-header${standalone ? ' app-console-header' : ''}`}>
@@ -56,7 +59,7 @@ function ConsoleHeader({ standalone = false }: { standalone?: boolean }) {
         <span>&gt; SZCZUR_NR_16 // KONSOLA ZAŁOGANTA</span>
       </Link>
       <span className={`console-status${isOpen ? ' is-active' : ''}`}>
-        STATUS: {isOpen ? 'AKTYWNY' : 'ZAMKNIĘTY'}
+        STATUS: Runda_{roundLabel} // do końca: <DeadlineCountdown deadline={currentRound?.submissionDeadline} />
       </span>
     </header>
   )
@@ -76,6 +79,7 @@ const breadcrumbLabels: Record<string, string> = {
   '/rundy': 'RUNDY',
   '/zgloszenia': 'ARCHIWUM ZGŁOSZEŃ',
   '/mapa': 'MAPA ZGŁOSZEŃ',
+  '/swiat': 'KATALOG ŚWIATA',
 }
 
 function Breadcrumbs() {
@@ -153,21 +157,57 @@ function HomePage() {
             <span>ZASŁUŻENI W BOJU I ODZNACZENI ZAŁOGANCI</span>
           </div>
         </Link>
-        <div className="console-panel console-panel-system">
+        <Link className="console-panel" to="/swiat">
           <div className="panel-heading">
-            <span>[ SYSTEM ]</span>
-            <Settings2 size={16} aria-hidden="true" />
+            <span>[ ŚWIAT ]</span>
+            <Telescope size={16} aria-hidden="true" />
           </div>
-          <dl className="system-readout">
-            <div><dt>RUNDA:</dt><dd>{roundNumber}</dd></div>
-            <div><dt>TERMIN:</dt><dd>{deadline}</dd></div>
-            <div><dt>DO KOŃCA:</dt><dd><DeadlineCountdown deadline={latestRound?.submissionDeadline} /></dd></div>
-          </dl>
-        </div>
+          <div className="panel-content">
+            <strong>POZNAJ ŚWIAT</strong>
+            <span>ISTOTY, BOHATEROWIE I ARTEFAKTY LABIRYNTU</span>
+          </div>
+        </Link>
       </section>
 
       <ConsoleFooter />
     </div>
+  )
+}
+
+function WorldPage() {
+  return (
+    <section className="world-page">
+      <div className="screen-noise" aria-hidden="true" />
+      <header className="world-header">
+        <div>
+          <p className="eyebrow">DOKUMENTACJA TERENOWA</p>
+          <h1>KATALOG ŚWIATA</h1>
+          <p>Elementy, osoby i przedmioty napotkane przez załogę Szczura nr 16 w Nieskończonym Labiryncie.</p>
+        </div>
+        <span className="world-index">{worldEntries.length.toString().padStart(2, '0')} REKORDY</span>
+      </header>
+
+      <div className="world-grid">
+        {worldEntries.map((entry) => (
+          <article className="world-entry" key={entry.id}>
+            <header className="world-entry-header">
+              <span>{entry.category}</span>
+              <span>{entry.id}</span>
+            </header>
+            <h2>{entry.name}</h2>
+            <p>{entry.description}</p>
+            <dl className="world-entry-facts">
+              {entry.facts.map((fact) => (
+                <div key={fact.label}>
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </article>
+        ))}
+      </div>
+    </section>
   )
 }
 
@@ -277,6 +317,7 @@ function App() {
         <Route path="/rundy" element={<ComingSoonPage title="Rundy" />} />
         <Route path="/zgloszenia" element={<ComingSoonPage title="Archiwum zgłoszeń" />} />
         <Route path="/mapa" element={<MapPage />} />
+        <Route path="/swiat" element={<WorldPage />} />
       </Routes>
     </Layout>
   )
