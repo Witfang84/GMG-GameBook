@@ -6,10 +6,12 @@ import {
   Handle,
   Position,
   ReactFlow,
+  useReactFlow,
   type EdgeProps,
   type NodeProps,
 } from '@xyflow/react'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, LocateFixed, Maximize2, Minimize2 } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { createStoryGraph, type StoryNode, type StoryNodeData } from '../domain/storyGraph'
 import { story } from '../domain/story'
@@ -110,7 +112,71 @@ function StoryNodeCard({ data }: NodeProps<StoryNode>) {
 const nodeTypes = { story: StoryNodeCard }
 const edgeTypes = { canonical: CanonicalEdge }
 
+type InitialViewport = { x: number; y: number; zoom: number }
+
+function MapControls({
+  initialViewportRef,
+  isFullscreen,
+  toggleFullscreen,
+}: {
+  initialViewportRef: React.MutableRefObject<InitialViewport | null>
+  isFullscreen: boolean
+  toggleFullscreen: () => void
+}) {
+  const { setViewport } = useReactFlow()
+
+  return (
+    <Controls showInteractive={false} showFitView={false}>
+      <button
+        type="button"
+        className="react-flow__controls-button map-reset-control"
+        title="Przywróć widok początkowy"
+        aria-label="Przywróć widok początkowy"
+        onClick={() => {
+          if (initialViewportRef.current) void setViewport(initialViewportRef.current)
+        }}
+      >
+        <LocateFixed size={16} aria-hidden="true" />
+      </button>
+      <button
+        type="button"
+        className="react-flow__controls-button map-fullscreen-control"
+        title={isFullscreen ? 'Wyjdź z pełnego ekranu' : 'Pełny ekran'}
+        aria-label={isFullscreen ? 'Wyjdź z pełnego ekranu' : 'Pełny ekran'}
+        aria-pressed={isFullscreen}
+        onClick={toggleFullscreen}
+      >
+        {isFullscreen ? <Minimize2 size={16} aria-hidden="true" /> : <Maximize2 size={16} aria-hidden="true" />}
+      </button>
+    </Controls>
+  )
+}
+
 export function MapPage() {
+  const mapCanvasRef = useRef<HTMLDivElement>(null)
+  const initialViewportRef = useRef<InitialViewport | null>(null)
+  const [isFullscreen, setIsFullscreen] = useState(false)
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(document.fullscreenElement === mapCanvasRef.current)
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange)
+  }, [])
+
+  const toggleFullscreen = async () => {
+    if (!mapCanvasRef.current) return
+
+    if (document.fullscreenElement === mapCanvasRef.current) {
+      await document.exitFullscreen()
+      return
+    }
+
+    await mapCanvasRef.current.requestFullscreen()
+  }
+
   return (
     <section className="map-page">
       <header className="map-header">
@@ -127,7 +193,7 @@ export function MapPage() {
 
       <div className="map-layout">
         <div className="map-canvas-shell">
-          <div className="map-canvas" aria-label="Interaktywna mapa zgłoszeń">
+          <div ref={mapCanvasRef} className="map-canvas" aria-label="Interaktywna mapa zgłoszeń">
             <ReactFlow
               nodes={graph.nodes}
               edges={graph.edges}
@@ -138,10 +204,17 @@ export function MapPage() {
               nodesConnectable={false}
               nodesDraggable
               elementsSelectable
+              onInit={(instance) => {
+                initialViewportRef.current = instance.getViewport()
+              }}
               proOptions={{ hideAttribution: true }}
             >
               <Background color="#cfc2ad" gap={24} size={1} />
-              <Controls showInteractive={false} />
+              <MapControls
+                initialViewportRef={initialViewportRef}
+                isFullscreen={isFullscreen}
+                toggleFullscreen={() => void toggleFullscreen()}
+              />
             </ReactFlow>
           </div>
         </div>

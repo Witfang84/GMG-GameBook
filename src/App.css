@@ -50,11 +50,14 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 .map-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
 .map-canvas-shell { min-width: 0; overflow: hidden; border: 2px solid var(--primary); background: var(--surface-container-low, #f6f3ec); }
 .map-canvas { height: 720px; background-color: var(--surface); background-image: linear-gradient(rgba(68, 71, 74, .025) 1px, transparent 1px), linear-gradient(90deg, rgba(68, 71, 74, .025) 1px, transparent 1px), repeating-linear-gradient(0deg, transparent 0, transparent 3px, rgba(28, 28, 24, .025) 4px); background-size: 24px 24px, 24px 24px, auto; }
+.map-canvas:fullscreen { height: 100dvh; border: 0; }
+.map-canvas:fullscreen .react-flow { height: 100%; }
 .map-canvas .react-flow { font-family: 'Space Grotesk', sans-serif; }
 .map-canvas .react-flow__controls { overflow: hidden; box-shadow: none; border: 2px solid var(--primary); border-radius: 0; }
 .map-canvas .react-flow__controls-button { width: 30px; height: 30px; border-bottom: 1px solid var(--primary); border-color: var(--primary); background: var(--surface); color: var(--primary); fill: currentColor; }
 .map-canvas .react-flow__controls-button:last-child { border-bottom: 0; }
 .map-canvas .react-flow__controls-button:hover { background: var(--primary); color: var(--surface); }
+.map-canvas .map-fullscreen-control svg { width: 16px; height: 16px; }
 .map-canvas .react-flow__handle { width: 7px; height: 7px; border: 1px solid var(--primary); border-radius: 0; background: var(--surface); }
 .map-canvas .react-flow__edge-path { stroke: var(--secondary); stroke-width: 1.5; }
 .map-canvas .react-flow__edge.animated .canonical-edge-mask { stroke: var(--surface) !important; stroke-width: 5px !important; stroke-dasharray: none !important; animation: none !important; pointer-events: none; }
