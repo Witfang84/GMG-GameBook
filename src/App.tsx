@@ -167,7 +167,6 @@ function WorldPage() {
       <div className="screen-noise" aria-hidden="true" />
       <header className="world-header">
         <div>
-          <p className="eyebrow">DOKUMENTACJA TERENOWA</p>
           <h1>KATALOG ŚWIATA</h1>
           <p>Elementy, osoby i przedmioty napotkane przez załogę Szczura nr 16 w Nieskończonym Labiryncie.</p>
         </div>
