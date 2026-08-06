@@ -13,13 +13,6 @@ import ratAsset from './assets/szczur-16-blueprint 1.png'
 import './App.css'
 import '@xyflow/react/dist/style.css'
 
-const formatDate = (date: string) =>
-  new Intl.DateTimeFormat('pl-PL', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  }).format(new Date(date))
-
 const formatCountdown = (deadline?: string) => {
   if (!deadline) return '--:--:--'
 
@@ -114,12 +107,6 @@ function Layout({ children }: { children: React.ReactNode }) {
 }
 
 function HomePage() {
-  const latestRound = story.rounds.at(-1)
-  const roundNumber = latestRound?.number.toString().padStart(2, '0') ?? '--'
-  const deadline = latestRound?.submissionDeadline
-    ? formatDate(latestRound.submissionDeadline)
-    : 'DO USTALENIA'
-
   return (
     <div className="home-screen">
       <div className="screen-noise" aria-hidden="true" />
