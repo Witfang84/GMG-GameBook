@@ -347,11 +347,11 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 .world-header p:last-child { max-width: 550px; margin: 0; color: var(--on-surface-variant); font-size: 16px; line-height: 1.5; }
 .world-index { flex: 0 0 auto; padding: 8px 10px; border: 2px solid var(--secondary); color: var(--secondary); font-size: 11px; font-weight: 700; letter-spacing: .08em; }
 .world-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
-.world-entry { min-width: 0; padding: 16px; border: 2px solid var(--primary); background: var(--surface-container-low, #f6f3ec); }
+.world-entry { display: flex; min-width: 0; flex-direction: column; padding: 16px; border: 2px solid var(--primary); background: var(--surface-container-low, #f6f3ec); }
 .world-entry-header { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--outline-variant); color: var(--secondary); font-size: 10px; font-weight: 700; letter-spacing: .08em; }
 .world-entry h2 { margin: 24px 0 10px; font-size: 24px; font-weight: 700; line-height: 1.1; }
 .world-entry > p { min-height: 96px; margin: 0 0 22px; color: var(--on-surface-variant); font-size: 14px; line-height: 1.5; }
-.world-entry-facts { display: grid; gap: 7px; margin: 0; padding-top: 12px; border-top: 2px solid var(--primary); }
+.world-entry-facts { display: grid; gap: 7px; margin: auto 0 0; padding-top: 12px; border-top: 2px solid var(--primary); }
 .world-entry-facts div { display: flex; justify-content: space-between; gap: 12px; font-size: 11px; }
 .world-entry-facts dt { color: var(--outline); font-weight: 700; }
 .world-entry-facts dd { margin: 0; font-weight: 700; text-align: right; }
