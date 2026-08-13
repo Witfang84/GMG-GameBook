@@ -115,9 +115,11 @@ export const story: StoryData = {
       id: 'round-4',
       number: 4,
       parentCanonParagraphId: 'submission-3-1',
-      status: 'collecting-submissions',
+      status: 'completed',
       createdAt: '2020-08-02T22:00:00Z',
       submissionDeadline: '2026-08-09T20:00:00Z',
+      decidedAt: '2026-08-09T20:00:00Z',
+      decidedBy: 'Organizator',
     },
   ],
   options: [
@@ -164,6 +166,7 @@ export const story: StoryData = {
       roundId: 'round-4',
       label: '1',
       text: 'Skupiasz się na jak najszybszym doprowadzeniu ocalonego do lepszego stanu, by mógł powiedzieć więcej.',
+      selectedAt: '2026-08-09T20:00:00Z',
     },
     {
       id: 'option-4-2',
@@ -190,6 +193,11 @@ export const story: StoryData = {
       sequenceNumber: 3,
       paragraphId: 'submission-3-1',
       chosenOptionId: 'option-3-2',
+    },
+    {
+      sequenceNumber: 4,
+      paragraphId: 'submission-4-5',
+      chosenOptionId: 'option-4-1',
     },
   ],
 }
