@@ -51,7 +51,7 @@ const getEstimatedHeight = (data: StoryNodeData) => {
     return 34 + kickerHeight + 30 + textLines * 22
   }
 
-  const bodyHeight = data.text ? 12 + Math.min(textLines, 3) * 17 : 0
+  const bodyHeight = data.text ? 12 + textLines * 17 : 0
   if (data.kind === 'option') return 34 + 19 + 22 + 12 + bodyHeight + 25
   return 34 + 19 + 22 + 12 + bodyHeight
 }
@@ -139,7 +139,7 @@ export function createStoryGraph(data: StoryData) {
     const roundSubmissions = getRoundSubmissions(data, round.id)
     const parentIsCanonical = canonicalParents.has(round.parentCanonParagraphId)
     const roundIsCanonical = parentIsCanonical && roundIndex < data.rounds.length
-    const showRoundNode = round.id !== 'round-3' && round.id !== 'round-4'
+    const showRoundNode = Boolean(round.prompt)
     const optionSourceId = showRoundNode ? round.id : round.parentCanonParagraphId
 
     if (showRoundNode) {

@@ -80,7 +80,7 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 .story-node-option-author { display: block; margin-bottom: 4px; color: var(--on-surface-variant); font: 11px 'Space Grotesk', sans-serif; }
 .story-node-subtitle { display: block; color: var(--on-surface-variant); font: 11px 'Space Grotesk', sans-serif; }
 .story-node-status { color: var(--secondary); text-align: right; }
-.story-node p { display: -webkit-box; overflow: hidden; margin: 12px 0 0; color: var(--on-surface-variant); font: 13px/1.45 'Space Grotesk', sans-serif; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.story-node p { display: block; overflow: visible; margin: 12px 0 0; color: var(--on-surface-variant); font: 13px/1.45 'Space Grotesk', sans-serif; }
 .story-node-full-text { display: block !important; overflow: visible !important; margin: 0 !important; color: var(--on-surface-variant) !important; font: 13px/1.45 'Space Grotesk', sans-serif !important; }
 .story-node-round p { color: var(--surface-container-high); }
 .story-node-round.is-canonical {

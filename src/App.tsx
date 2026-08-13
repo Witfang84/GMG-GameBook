@@ -7,7 +7,7 @@ import {
   getSubmission,
   story,
 } from './domain/story'
-import { worldEntries } from './domain/world'
+import { getNewestWorldEntries, worldEntries } from './domain/world'
 import { MapPage } from './components/MapPage'
 import ratAsset from './assets/szczur-16-blueprint 1.png'
 import './App.css'
@@ -162,6 +162,8 @@ function HomePage() {
 }
 
 function WorldPage() {
+  const newestEntries = getNewestWorldEntries()
+
   return (
     <section className="world-page">
       <div className="screen-noise" aria-hidden="true" />
@@ -174,7 +176,7 @@ function WorldPage() {
       </header>
 
       <div className="world-grid">
-        {worldEntries.map((entry) => (
+        {newestEntries.map((entry) => (
           <article className="world-entry" key={entry.id}>
             <header className="world-entry-header">
               <span>{entry.category}</span>
