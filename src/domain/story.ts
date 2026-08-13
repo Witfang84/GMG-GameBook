@@ -121,6 +121,14 @@ export const story: StoryData = {
       decidedAt: '2026-08-09T20:00:00Z',
       decidedBy: 'Organizator',
     },
+    {
+      id: 'round-5',
+      number: 5,
+      parentCanonParagraphId: 'submission-4-5',
+      status: 'collecting-submissions',
+      createdAt: '2026-08-09T20:00:00Z',
+      submissionDeadline: '2026-08-16T20:00:00Z',
+    },
   ],
   options: [
     {
@@ -179,6 +187,24 @@ export const story: StoryData = {
       roundId: 'round-4',
       label: '3',
       text: 'Słyszysz metaliczną eksplozję za plecami. Burta Szczura 16 jest rozrywana od środka, więc pędzisz z ratunkiem.',
+    },
+    {
+      id: 'option-5-1',
+      roundId: 'round-5',
+      label: '1',
+      text: 'Cofając się o parę kroków, bierzesz na muszkę Hiko, a pozostali Kozacy idą za twoim śladem. Mówisz do Hiko: „Tylko spokojnie!”, ale on, już na czworaka, skacze na ciebie, mając w oczach szaleńczy apetyt.',
+    },
+    {
+      id: 'option-5-2',
+      roundId: 'round-5',
+      label: '2',
+      text: 'Hiko skacze do szyi najbliższego z twojej załogi, więc pozostali rozstrzeliwują przemienionego kolegę. Jego krew i resztki są wszędzie, docierają także do ciał twoich Kozaków. Ty zdążyłaś odskoczyć. Czy ktoś jeszcze?... Przemiana trafionych, która dzieje się na twoich oczach, jest niemal natychmiastowa. Pędzisz co sił z powrotem do Szczura.',
+    },
+    {
+      id: 'option-5-3',
+      roundId: 'round-5',
+      label: '3',
+      text: 'Reagujesz instynktownie — uruchamiasz swój kombinezon i wystrzeliwujesz jeden pocisk koło ucha Hiko, po czym wskakujesz na ścianę, a stamtąd na sufit — chcesz go odciągnąć od pozostałych. Gdy oszalały Hiko-czworonożny drapieżnik skacze za tobą, pędzisz po suficie za gruzowisko, krzycząc przez radio: „Wycofać się do Szczura i raportować Nezumiemu!”. Myśl: „Jak to się stało, że ocalony Kozak uchronił się od przemiany?” — gdy chcesz o tym powiedzieć przez radio, Hiko, wyjąc wściekle, rzuca się na ciebie.',
     },
   ],
   openingSubmissions,
