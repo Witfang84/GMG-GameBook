@@ -158,6 +158,7 @@ export const story: StoryData = {
       prompt: 'Padasz na pancerz dziobu. Wbijasz palce pod właz awaryjny. Prostujesz nogi i wspomagana ciągiem jetpacka wyrywasz stal z nitów. Wpadasz na mostek. Na huk wyłomu Nezumi unosi dymiący rewolwer znad martwego sternika i z obłędem w oczach mierzy w ciebie. Za jego plecami, w grubym przeszkleniu rosną wrota Gniazda. Maszyna nie wyhamuje.',
       status: 'collecting-submissions',
       createdAt: '2026-08-31T20:00:00Z',
+      submissionDeadline: '2026-09-06T20:00:00Z',
     },
   ],
   options: [
@@ -273,6 +274,7 @@ export const story: StoryData = {
       roundId: 'round-7',
       label: '3',
       text: 'Spod zmiażdżonego Kota wydostaje się histeryzujący mężczyzna w białym mundurze Fundacji. Ma na plecach jetpack i chyba, będąc w Kocie, złamał rękę. Patrzycie sobie w oczy: – To... mechanizm?! — pytasz zszokowana. Facet nie odpowiada, niezręcznie lewą ręką próbuje odpalić konsolę jetpacka i uciec. – Ty tym sterowałeś? Odpala się jetpack, ucieknie ci — reakcja — strzelasz do mężczyzny. Wypuszczony z martwej dłoni joystick wyłącza napęd. Po założeniu jetpacka i upewnieniu się, że z „pilota” Kota niczego się nie dowiesz, odpalasz turbo i pędzisz przez korytarze na spotkanie ze Szczurem...',
+      selectedAt: '2026-08-31T20:00:00Z',
     },
     {
       id: 'option-8-1',

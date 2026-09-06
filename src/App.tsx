@@ -44,6 +44,16 @@ function ConsoleHeader({ standalone = false }: { standalone?: boolean }) {
   const isOpen = story.contest.status === 'open'
   const currentRound = story.rounds.at(-1)
   const roundLabel = currentRound?.number.toString().padStart(2, '0') ?? '--'
+  const [now, setNow] = useState(() => Date.now())
+  const deadline = currentRound?.submissionDeadline
+  const transcodingStarted = deadline
+    ? now >= new Date(deadline).getTime()
+    : false
+
+  useEffect(() => {
+    const timerId = window.setInterval(() => setNow(Date.now()), 1000)
+    return () => window.clearInterval(timerId)
+  }, [])
 
   return (
     <header className={`console-header${standalone ? ' app-console-header' : ''}`}>
@@ -51,9 +61,13 @@ function ConsoleHeader({ standalone = false }: { standalone?: boolean }) {
         <Terminal size={15} strokeWidth={2.5} aria-hidden="true" />
         <span>&gt; SZCZUR_NR_16 // KONSOLA ZAŁOGANTA</span>
       </Link>
-      <span className={`console-status${isOpen ? ' is-active' : ''}`}>
-        STATUS: Runda_{roundLabel} // do końca: <DeadlineCountdown deadline={currentRound?.submissionDeadline} />
-      </span>
+      {transcodingStarted ? (
+        <span className="console-status">Transkodowanie rozpoczęte...</span>
+      ) : (
+        <span className={`console-status${isOpen ? ' is-active' : ''}`}>
+          STATUS: Runda_{roundLabel} // do końca: <DeadlineCountdown deadline={deadline} />
+        </span>
+      )}
     </header>
   )
 }
