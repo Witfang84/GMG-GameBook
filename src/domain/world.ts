@@ -275,6 +275,43 @@ export const worldEntries: WorldEntry[] = [
       { label: 'STATUS', value: 'Niepotwierdzona hipoteza' },
     ],
   },
+  {
+    id: 'ART-JETPACK',
+    introducedInRound: 7,
+    category: 'ARTEFAKT',
+    name: 'Jetpack Kizy',
+    description: 'Napęd osobistego skafandra, dzięki któremu Kiza może dogonić Szczura nr 16, przebić się do jego wnętrza albo pokonać skróty Labiryntu. W zgłoszeniach kolejki 7 staje się kluczowym narzędziem pościgu.',
+    facts: [
+      { label: 'FUNKCJA', value: 'Lot i szybki pościg' },
+      { label: 'UŻYTKOWNICZKA', value: 'Kiza' },
+      { label: 'STATUS', value: 'Sprawny, lecz ograniczony zapasem energii' },
+    ],
+  },
+  {
+    id: 'IST-FUNDACYJNY-KOT',
+    introducedInRound: 7,
+    category: 'ISTOTA',
+    name: 'Fundacyjny K0T',
+    description: 'Podejrzany obiekt lub mechanizm w kształcie Kota, wspomniany w zgłoszeniach kolejki 7. Jedna z relacji sugeruje, że to człowiek sterujący konstrukcją z wnętrza, co podważa dotychczasowy obraz Kota jako pojedynczego drapieżnika.',
+    facts: [
+      { label: 'POCHODZENIE', value: 'Fundacja' },
+      { label: 'NATURA', value: 'Nieustalona: istota albo mechanizm' },
+      { label: 'POWIĄZANIE', value: 'Granatowe ślady i jajo' },
+      { label: 'STATUS', value: 'Hipoteza z alternatywnej relacji' },
+    ],
+  },
+  {
+    id: 'LOC-BRAMA-GNIAZDA',
+    introducedInRound: 7,
+    category: 'MIEJSCE',
+    name: 'Wrota Gniazda',
+    description: 'Monumentalna brama prowadząca do metropolii pośrodku Labiryntu. W zgłoszeniach kolejki 7 Szczur nr 16 zbliża się do niej z pełną prędkością, a załoga nie ma pewności, czy Gniazdo jest schronieniem, pułapką czy centrum spisku Fundacji.',
+    facts: [
+      { label: 'FUNKCJA', value: 'Wejście do Gniazda' },
+      { label: 'ZAGROŻENIE', value: 'Szczur nr 16 może nie wyhamować' },
+      { label: 'TAJEMNICA', value: 'Nieznany status mieszkańców i Fundacji' },
+    ],
+  },
 ]
 
 export function getNewestWorldEntries() {
