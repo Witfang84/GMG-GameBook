@@ -55,6 +55,18 @@ function ConsoleHeader({ standalone = false }: { standalone?: boolean }) {
     return () => window.clearInterval(timerId)
   }, [])
 
+  if (story.contest.status === 'completed') {
+    return (
+      <header className={`console-header${standalone ? ' app-console-header' : ''}`}>
+        <Link className="console-prompt" to="/" aria-label="Szczur numer 16, strona główna">
+          <Terminal size={15} strokeWidth={2.5} aria-hidden="true" />
+          <span>&gt; SZCZUR_NR_16 // KONSOLA ZAŁOGANTA</span>
+        </Link>
+        <span className="console-status">STATUS: Historia zakończona // 8 kolejek</span>
+      </header>
+    )
+  }
+
   return (
     <header className={`console-header${standalone ? ' app-console-header' : ''}`}>
       <Link className="console-prompt" to="/" aria-label="Szczur numer 16, strona główna">
@@ -215,10 +227,6 @@ function WorldPage() {
 
 function CanonPage() {
   const entries = getCanonicalEntries(story)
-  const latestRound = story.rounds.at(-1)
-  const pendingOptions = latestRound
-    ? story.options.filter((option) => option.roundId === latestRound.id)
-    : []
 
   return (
     <section className="canon-page">
@@ -226,7 +234,7 @@ function CanonPage() {
       <header className="canon-header">
         <div>
           <h1>KANON</h1>
-          <p>Oficjalny zapis zwycięskich paragrafów Szczura nr 16. Każdy rekord prowadzi do następnej decyzji załogi.</p>
+          <p>Oficjalny zapis zwycięskich paragrafów Szczura nr 16. Pełna historia zakończona po ośmiu kolejkach.</p>
         </div>
       </header>
 
@@ -244,6 +252,12 @@ function CanonPage() {
           const paragraph = getSubmission(story, entry.paragraphId)
           const round = story.rounds.find((item) => item.id === paragraph?.roundId)
           const option = round ? getSelectedOption(story, round.id) : undefined
+          const parentParagraph = round
+            ? getSubmission(story, round.parentCanonParagraphId)
+            : undefined
+          const showPrompt = Boolean(
+            round?.prompt && round.prompt !== parentParagraph?.text,
+          )
 
           if (!paragraph || !round || !option) return null
 
@@ -253,7 +267,7 @@ function CanonPage() {
                 <span>{entry.sequenceNumber.toString().padStart(2, '0')}</span>
               </div>
               <div className="canon-sequence-content">
-                {round.prompt && (
+                {showPrompt && (
                   <article className="canon-transition canon-prompt">
                     <header className="canon-transition-header">
                       <span>KONTEKST</span>
@@ -278,21 +292,11 @@ function CanonPage() {
           )
         })}
 
-        <aside className="canon-pending">
-          <div className="canon-pending-summary">
-            <strong>RUNDA {latestRound?.number ?? '--'} // OCZEKUJE</strong>
-            <p>Wybierz jedną z trzech opcji.</p>
-          </div>
-          <div className="canon-pending-options" aria-label="Opcje do wyboru">
-            {pendingOptions.map((option) => (
-              <div className="canon-pending-option" key={option.id}>
-                <strong>OPCJA {option.label}</strong>
-                <p>{option.text}</p>
-              </div>
-            ))}
-          </div>
-          <Link to="/mapa">Otwórz mapę <ArrowUpRight size={16} aria-hidden="true" /></Link>
-        </aside>
+          <aside className="canon-finale">
+            <strong>Historia zakończona po 8. kolejce</strong>
+            <p>To pełny zapis kanonu. Kolejna decyzja załogi nie będzie już dodawana.</p>
+            <Link to="/mapa">Otwórz mapę <ArrowUpRight size={16} aria-hidden="true" /></Link>
+          </aside>
       </div>
     </section>
   )

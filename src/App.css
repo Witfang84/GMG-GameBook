@@ -849,6 +849,22 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 .canon-pending a:hover,
 .canon-pending a:focus-visible { color: var(--secondary); outline: none; }
 
+.canon-finale {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	gap: 5px 24px;
+	align-items: center;
+	margin-top: 32px;
+	padding: 17px 18px;
+	border: 2px solid var(--secondary);
+	background: var(--secondary-container);
+	color: var(--on-secondary-container);
+}
+
+.canon-finale strong { font-size: 15px; }
+.canon-finale p { margin: 0; color: var(--on-surface-variant); font-size: 13px; }
+.canon-finale a { grid-column: 2; grid-row: 1 / span 2; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; }
+
 @media (max-width: 700px) {
 	.home-shell .site-header,
 	.home-shell .site-footer {
@@ -895,4 +911,6 @@ h2 { margin-bottom: 12px; font-size: clamp(28px, 3vw, 40px); font-weight: 400; l
 	}
 	.canon-pending-option:last-child { padding-bottom: 0; border-bottom: 0; }
 	.canon-pending > a { grid-column: 1; justify-self: start; }
+	.canon-finale { grid-template-columns: 1fr; }
+	.canon-finale a { grid-column: 1; grid-row: auto; justify-self: start; }
 }

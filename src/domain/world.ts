@@ -18,11 +18,11 @@ export const worldEntries: WorldEntry[] = [
     introducedInRound: 1,
     category: 'ISTOTA',
     name: 'Biomechaniczny Szczur nr 16',
-    description: 'Żywy statek i dom dla trzystu załogantów. Przemierza Labirynt, zbierając zasoby dla Gniazda. Alternatywne relacje z kolejki 4 ostrzegają przed utratą kontroli nad Szczurem albo atakiem w jego wnętrzu.',
+    description: 'Żywy statek i dom dla trzystu załogantów. Przemierza Labirynt, zbierając zasoby dla Gniazda. Po zderzeniu z bramą Gniazda jego wrak zatrzymał się kilkanaście metrów przed wejściem.',
     facts: [
       { label: 'ZAŁOGA', value: '300 osób' },
       { label: 'FUNKCJA', value: 'Ekspedycyjna' },
-      { label: 'OSTRZEŻENIE', value: 'Możliwy atak lub utrata kontroli' },
+      { label: 'FINAŁ', value: 'Wrak przed wrotami Gniazda' },
     ],
   },
   {
@@ -221,11 +221,11 @@ export const worldEntries: WorldEntry[] = [
     introducedInRound: 5,
     category: 'BOHATER',
     name: 'Nezumi',
-    description: 'Kapitan Szczura nr 16, dotąd wymagany i sprawiedliwy dowódca. Przed zamkniętą śluzą przyznaje Kizie, że jajo jest ważniejsze niż jej życie, i prosi o wybaczenie, zanim odcina ją od statku razem z odmieńcami.',
+    description: 'Kapitan Szczura nr 16, dotąd wymagający i sprawiedliwy dowódca. W finale przyznaje Kizie, że jajo i embriony były dla Fundacji ważniejsze niż życie załogi; ginie w roztrzaskanym wraku Szesnastki.',
     facts: [
       { label: 'FUNKCJA', value: 'Kapitan Szczura nr 16' },
-      { label: 'DECYZJA', value: 'Zamyka śluzę, poświęcając Kizę' },
-      { label: 'CYTAT', value: '„To jajo. Jest warte wszystkiego. Wybacz”' },
+      { label: 'DECYZJA', value: 'Poświęca załogę dla jaja' },
+      { label: 'FINAŁ', value: 'Ginie w roztrzaskanym Szczurze 16' },
     ],
   },
   {
@@ -310,6 +310,30 @@ export const worldEntries: WorldEntry[] = [
       { label: 'FUNKCJA', value: 'Wejście do Gniazda' },
       { label: 'ZAGROŻENIE', value: 'Szczur nr 16 może nie wyhamować' },
       { label: 'TAJEMNICA', value: 'Nieznany status mieszkańców i Fundacji' },
+    ],
+  },
+  {
+    id: 'ART-EMBRIONY',
+    introducedInRound: 8,
+    category: 'ISTOTA',
+    name: 'Embriony z jaja',
+    description: 'Istoty rozwijające się w jajach przewożonych przez Szczury. Według ostatnich słów Nezumiego mogą przetrwać w słońcu i żyć na powierzchni, co miało być celem eksperymentów Fundacji.',
+    facts: [
+      { label: 'POCHODZENIE', value: 'Jajo z doliny' },
+      { label: 'ODPORNOŚĆ', value: 'Mogą żyć w słońcu' },
+      { label: 'STATUS', value: 'Nieznany po katastrofie' },
+    ],
+  },
+  {
+    id: 'LOC-WRAK-016',
+    introducedInRound: 8,
+    category: 'MIEJSCE',
+    name: 'Wrak Szesnastki',
+    description: 'Miejsce katastrofy kilkanaście metrów przed wrotami Gniazda. W zderzeniu ranni załoganci zostali uwięzieni w roztrzaskanym Szczurze, a ładunek z jajem przepadł.',
+    facts: [
+      { label: 'LOKALIZACJA', value: 'Przed wrotami Gniazda' },
+      { label: 'STAN', value: 'Pogruchotany wrak' },
+      { label: 'ŁADUNEK', value: 'Zniszczony lub utracony' },
     ],
   },
 ]
