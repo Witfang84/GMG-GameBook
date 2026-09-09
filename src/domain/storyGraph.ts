@@ -1,6 +1,11 @@
 import type { Edge, Node } from '@xyflow/react'
 import type { OpeningSubmission, StoryData } from './story'
-import { getCanonicalEntries, getRoundOptions, getRoundSubmissions } from './story'
+import {
+  getCanonicalEntries,
+  getRoundOptions,
+  getRoundSubmissions,
+  getSubmission,
+} from './story'
 
 export type StoryNodeKind = 'opening' | 'round' | 'option' | 'submission' | 'unassigned'
 
@@ -139,7 +144,10 @@ export function createStoryGraph(data: StoryData) {
     const roundSubmissions = getRoundSubmissions(data, round.id)
     const parentIsCanonical = canonicalParents.has(round.parentCanonParagraphId)
     const roundIsCanonical = parentIsCanonical && roundIndex < data.rounds.length
-    const showRoundNode = Boolean(round.prompt)
+    const parentParagraph = getSubmission(data, round.parentCanonParagraphId)
+    const showRoundNode = Boolean(
+      round.prompt && round.prompt !== parentParagraph?.text,
+    )
     const optionSourceId = showRoundNode ? round.id : round.parentCanonParagraphId
 
     if (showRoundNode) {

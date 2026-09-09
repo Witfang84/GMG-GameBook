@@ -83,7 +83,7 @@ export const story: StoryData = {
     title: 'Szczur nr 16',
     description:
       'Wspólnie pisana science-fiction paragrafówka o załodze biomechanicznego Szczura przemierzającego Nieskończony Labirynt.',
-    status: 'open',
+    status: 'completed',
   },
   openingParagraph: {
     id: 'opening',
@@ -156,9 +156,11 @@ export const story: StoryData = {
       number: 8,
       parentCanonParagraphId: 'submission-7-1',
       prompt: 'Padasz na pancerz dziobu. Wbijasz palce pod właz awaryjny. Prostujesz nogi i wspomagana ciągiem jetpacka wyrywasz stal z nitów. Wpadasz na mostek. Na huk wyłomu Nezumi unosi dymiący rewolwer znad martwego sternika i z obłędem w oczach mierzy w ciebie. Za jego plecami, w grubym przeszkleniu rosną wrota Gniazda. Maszyna nie wyhamuje.',
-      status: 'collecting-submissions',
+      status: 'completed',
       createdAt: '2026-08-31T20:00:00Z',
       submissionDeadline: '2026-09-06T20:00:00Z',
+      decidedAt: '2026-09-06T20:00:00Z',
+      decidedBy: 'Organizator',
     },
   ],
   options: [
@@ -293,6 +295,7 @@ export const story: StoryData = {
       roundId: 'round-8',
       label: '3',
       text: 'Coś poza mostkiem, pewnie w ładowni, wydarza się! Nie wiesz — to jakieś przeczucie, ułamek sekundy — przed chwilą patrzyłaś na nieubłaganie zbliżającą się katastrofę, a teraz Szczur zatrzymuje się zaledwie kilkanaście metrów od wrót Gniazda. Siła rozpędu rzuca cię na przednie okno jak lalkę. Na szczęście masz skafander. Nezumi zostaje rozpłaszczony na kokpicie. Otwierasz oczy, by zobaczyć, co zatrzymało Szczura...',
+      selectedAt: '2026-09-06T20:00:00Z',
     },
   ],
   openingSubmissions,
@@ -327,6 +330,11 @@ export const story: StoryData = {
       sequenceNumber: 7,
       paragraphId: 'submission-7-1',
       chosenOptionId: 'option-7-3',
+    },
+    {
+      sequenceNumber: 8,
+      paragraphId: 'submission-8-1',
+      chosenOptionId: 'option-8-3',
     },
   ],
 }
