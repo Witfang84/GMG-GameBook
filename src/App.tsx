@@ -1,4 +1,4 @@
-import { ArrowUpRight, BookOpen, ChevronRight, Map as MapIcon, Terminal, Telescope } from 'lucide-react'
+import { ArrowUpRight, BookOpen, ChevronRight, Gamepad2, Map as MapIcon, Terminal, Telescope } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, Route, Routes, useLocation } from 'react-router-dom'
 import {
@@ -9,6 +9,8 @@ import {
 } from './domain/story'
 import { getNewestWorldEntries, worldEntries } from './domain/world'
 import { MapPage } from './components/MapPage'
+import { ContinuationPage } from './components/ContinuationPage'
+import { InstanceGamePage } from './components/InstanceGamePage'
 import ratAsset from './assets/szczur-16-blueprint 1.png'
 import './App.css'
 import '@xyflow/react/dist/style.css'
@@ -99,6 +101,8 @@ const breadcrumbLabels: Record<string, string> = {
   '/zgloszenia': 'ARCHIWUM ZGŁOSZEŃ',
   '/mapa': 'MAPA ZGŁOSZEŃ',
   '/swiat': 'KATALOG ŚWIATA',
+  '/instancja': 'INSTANCJA KONTYNUACJI',
+  '/instancja/gra': 'KOKPIT INSTANCJI',
 }
 
 function Breadcrumbs() {
@@ -120,14 +124,15 @@ function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation()
   const isHome = location.pathname === '/'
   const isCanon = location.pathname === '/kanon'
+  const isGame = location.pathname === '/instancja/gra'
   const usesHomeShell = isHome || isCanon
 
   return (
-    <div className={`app-shell${usesHomeShell ? ' home-shell' : ''}${isCanon ? ' canon-shell' : ''}`}>
-      {isHome ? null : <ConsoleHeader standalone />}
-      {!isHome && <Breadcrumbs />}
+    <div className={`app-shell${usesHomeShell ? ' home-shell' : ''}${isCanon ? ' canon-shell' : ''}${isGame ? ' game-shell' : ''}`}>
+      {isHome || isGame ? null : <ConsoleHeader standalone />}
+      {!isHome && !isGame && <Breadcrumbs />}
       <main>{children}</main>
-      {isHome ? null : <ConsoleFooter standalone />}
+      {isHome || isGame ? null : <ConsoleFooter standalone />}
     </div>
   )
 }
@@ -178,6 +183,16 @@ function HomePage() {
           <div className="panel-content">
             <strong>POZNAJ ŚWIAT</strong>
             <span>ISTOTY, BOHATEROWIE I ARTEFAKTY LABIRYNTU</span>
+          </div>
+        </Link>
+        <Link className="console-panel console-panel-game" to="/instancja/gra">
+          <div className="panel-heading">
+            <span>[ GRA ]</span>
+            <Gamepad2 size={16} aria-hidden="true" />
+          </div>
+          <div className="panel-content">
+            <strong>Graj w paragrafówkę</strong>
+            <span>WEJDŹ DO KOKPITU I PRZEJDŹ HISTORIĘ SZCZURA NR 16</span>
           </div>
         </Link>
       </section>
@@ -296,6 +311,8 @@ function CanonPage() {
             <strong>Historia zakończona po 8. kolejce</strong>
             <p>To pełny zapis kanonu. Kolejna decyzja załogi nie będzie już dodawana.</p>
             <Link to="/mapa">Otwórz mapę <ArrowUpRight size={16} aria-hidden="true" /></Link>
+            <Link to="/instancja">Otwórz instancję kontynuacji <ArrowUpRight size={16} aria-hidden="true" /></Link>
+            <Link to="/instancja/gra">Uruchom kokpit gry <ArrowUpRight size={16} aria-hidden="true" /></Link>
           </aside>
       </div>
     </section>
@@ -324,6 +341,8 @@ function App() {
         <Route path="/zgloszenia" element={<ComingSoonPage title="Archiwum zgłoszeń" />} />
         <Route path="/mapa" element={<MapPage />} />
         <Route path="/swiat" element={<WorldPage />} />
+        <Route path="/instancja" element={<ContinuationPage />} />
+        <Route path="/instancja/gra" element={<InstanceGamePage />} />
       </Routes>
     </Layout>
   )
