@@ -1,0 +1,46 @@
+Attached Element Context from Integrated Browser
+
+Element: strong
+
+URL: http://localhost:5173/GMG-GameBook/#/
+
+HTML Path: div#root > div.app-shell.home-shell > main > div.home-screen > section.console-panels > a.console-panel.console-panel-game > div.panel-content > strong
+
+Outer HTML:
+```html
+<strong>GRAJ w GRĘ PARAGRAFOWA</strong>
+```
+
+Dimensions:
+- top: 703px
+- left: 39px
+- width: 738px
+- height: 20px
+
+CSS:
+```css
+* { box-sizing: border-box; }
+.panel-content strong { font-size: 15px;
+	font-weight: 700; }
+
+/* Inherited */
+a { color: inherit }
+.console-panel { color: var(--on-surface) }
+.console-panel:hover, .console-panel:focus-visible { color: var(--surface) }
+:root { font-family: 'Space Grotesk', sans-serif; color: var(--on-surface) }
+
+/* Resolved values */
+box-sizing: border-box;
+color: rgb(252, 249, 242);
+cursor: pointer /*UA*/;
+display: block;
+font-family: "Space Grotesk", sans-serif;
+font-size: 15px;
+font-weight: 700;
+height: 19.5px;
+width: 738px;
+
+/* CSS variables */
+--on-surface: #1c1c18;
+--surface: #fcf9f2;
+```
