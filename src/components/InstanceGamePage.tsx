@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getPlayableNode, playableStory, type PlayableNode, type PlayableOption } from '../domain/playableStory'
+import { story } from '../domain/story'
 
 function CockpitButton({
   label,
@@ -69,6 +70,7 @@ function ChoiceList({
 }
 
 export function InstanceGamePage() {
+  const [hasStarted, setHasStarted] = useState(false)
   const [currentNodeId, setCurrentNodeId] = useState(playableStory.startNodeId)
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [selectedOption, setSelectedOption] = useState<PlayableOption | null>(null)
@@ -77,6 +79,7 @@ export function InstanceGamePage() {
   const progressLabel = `${currentNode?.roundNumber.toString().padStart(2, '0') ?? '--'} / ${playableStory.totalRounds.toString().padStart(2, '0')}`
 
   const resetGame = () => {
+    setHasStarted(false)
     setCurrentNodeId(playableStory.startNodeId)
     setSelectedIndex(null)
     setSelectedOption(null)
@@ -128,6 +131,27 @@ export function InstanceGamePage() {
   })
 
   if (!currentNode) return null
+
+  if (!hasStarted) {
+    return (
+      <section className="game-page game-start-page">
+        <div className="screen-noise" aria-hidden="true" />
+        <div className="game-start-card">
+          <p className="game-start-kicker">R-16 // INSTANCJA GRY</p>
+          <h1>{playableStory.title}</h1>
+          <p className="game-start-copy">{story.openingParagraph.text}</p>
+          <button
+            type="button"
+            className="game-start-button"
+            onClick={() => setHasStarted(true)}
+          >
+            <span>Start</span>
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="game-page">

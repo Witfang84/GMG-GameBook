@@ -7,6 +7,7 @@ import {
   type Option,
 } from './story'
 import { continuationInstance } from './continuationStory'
+import { authoredAlternateNodes } from './authoredAlternateNodes'
 
 export type PlayableOption = {
   id: string
@@ -49,10 +50,10 @@ const canonicalRounds = story.rounds.map((round, index) => {
 
   return {
     id: `canonical-${round.id}`,
-    roundNumber: index,
+    roundNumber: index + 1,
     paragraphText:
       index === 0
-        ? `${story.openingParagraph.text}\n\n${round.prompt ?? ''}`
+        ? round.prompt ?? ''
         : round.prompt ?? getSourceParagraphText(round.parentCanonParagraphId),
     canonicalOptionId: canonicalEntry.chosenOptionId,
     canonicalOutcomeText: outcomeParagraph.text,
@@ -76,6 +77,11 @@ const alternateBridgeTexts = [
   'Odpowiedź z Gniazda nie nadchodzi. Zostaje tylko sygnał, który powtarza się w ścianach i prowadzi cię w głąb.',
   'Źródło zagrożenia nie pozwala się zobaczyć. Zanim zgaśnie światło, dostrzegasz przed sobą kolejne przejście.',
 ]
+
+const authoredAlternateEntryIds: Record<string, string> = {
+  'option-2-1': 'alternate-round-2-option-1',
+  'option-2-3': 'alternate-round-2-option-3',
+}
 
 const buildAlternateNodes = (
   sourceOption: { id: string; text: string; outcomeText: string },
@@ -185,7 +191,7 @@ canonicalRounds.forEach((round, index) => {
           ? index === canonicalNodeIds.length - 1
             ? `canonical-ending-${option.id}`
             : allNodeIds[index + 1]
-          : `alternate-entry-${option.id}`,
+          : authoredAlternateEntryIds[option.id] ?? `alternate-entry-${option.id}`,
       }
     }),
   }
@@ -231,6 +237,13 @@ canonicalRounds.forEach((round) => {
     })
 })
 
+// Opracowane redakcyjnie odnogi zastępują generowane teksty zastępcze.
+// Ich dalsze wybory prowadzą tymczasowo do istniejącego archiwum alternatyw,
+// dopóki kolejne warstwy historii nie zostaną napisane.
+authoredAlternateNodes.forEach((node) => {
+  nodes[node.id] = node
+})
+
 continuationInstance.rounds.forEach((round, index) => {
   const nodeId = continuationNodeIds[index]
   const outcomeParagraph = continuationInstance.paragraphs.find(
@@ -243,7 +256,7 @@ continuationInstance.rounds.forEach((round, index) => {
 
   nodes[nodeId] = {
     id: nodeId,
-    roundNumber: story.rounds.length + index,
+    roundNumber: story.rounds.length + index + 1,
     paragraphText: round.prompt,
     options: round.options.map((option) => ({
       id: option.id,
